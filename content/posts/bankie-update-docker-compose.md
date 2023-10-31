@@ -333,6 +333,10 @@ Here's an example of using `curl` to create an account and retrieve its informat
 
 ## Conclusion
 
-Docker Compose simplifies the development and deployment of multi-container applications like Bankie.go. With a single command, you can set up the entire application stack, allowing you to focus on coding and not on environment configuration. It also promotes consistency and collaboration among development teams.
+Docker Compose simplifies the development and deployment of multi-container applications like Bankie.go. 
+With a single command, you can set up the entire application stack, allowing you to focus on coding and 
+not on environment configuration. It also promotes consistency and collaboration among development teams.
 
-By updating Bankie.go to use Docker Compose, we've made it even more developer-friendly, enabling you to build, run, and test the application effortlessly. Give it a try, and enjoy a smoother development experience with Bankie.go!
+By updating Bankie.go to use Docker Compose, we've made it even more developer-friendly, 
+enabling you to build, run, and test the application effortlessly. 
+Give it a try, and enjoy a smoother development experience with your Go applications!
