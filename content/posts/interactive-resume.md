@@ -14,7 +14,11 @@ tags = ["showcase"]
 ---
 
 Hi, my name is **MacBobby**.
-I'm currently a software and blockchain engineer and technical writer with practical knowledge and experience developing Web2 and Web3 native softwares using Golang, Solidity, and Rust 🦀.
+
+I am a result-driven software engineer with 4 years of experience. 
+I have hands-on experience building FinTech and Blockchain software. 
+My interests lie in distributed systems and modern software architecture. 
+I also enjoy contributing to open-source projects and sharing my knowledge through writing.
 
 ---
 
@@ -160,12 +164,45 @@ I am proficient in cloud DevOps tasks with practical experience using:
 <aside>
 <img src="https://img.icons8.com/?size=512&id=111405&format=png" style="width: 40px; margin-top: 10px; margin-right: 10px; vertical-align: middle;" alt="Software Skills" /> Jobs </aside>
 
+## September 2023-Present
+
+---
+
+## Lead Software Engineer
+Cloudax Holdings - Nicosia, Cyprus
+
+---
+
+1. Architected the software and built the business logic for greenfield products from scratch that has scaled to a growing user base.
+2. Built critical APIs, smart contracts, and Infrastructure-as-Code pipelines, and picked up relevant technologies quickly to achieve business objectives and drive innovation, ensuring seamless and efficient operations within the organization.
+3. Lead a team of engineers to build crypto native, blockchain oracles, banking, p2p applications from scratch to first batch of users.
+4. Leveraged knowledge of general programming principles to mentor and hold code reviews for developers using different technologies, to achieve production-ready product.
+5. In charge of software architecture, decision making, developer productivity, and user satisfaction for products built.
+6. Collaborated with CEO and clients to achieve customer satisfaction for products built.
+
+*Technologies Used:* **Golang, Solidity, Rust, Dart/Flutter, Blockchain, Docker, Heroku, AWS, Digital Ocean, PostgreSQL.**
+
+## July 2023-August 2023
+
+---
+
+## Golang Blockchain Developer
+TraderJoe - Contract
+
+---
+
+1. Built a trade scraper that fetches trading data from the decentralized exchange's smart contract.
+2. Built a liquidity scraper that fetches pools and gets all liquidity book pairs from the smart contract, and calculates liquidity and metrics.
+3. Interacted with a very large code base to understand the underlying architecture, and build meaningful software with it
+
+*Technologies Used:* **Golang, Geth, Blockchain/Ethereum, Solidity, Docker, Kubernetes**
+
 ## December 2022—July 2023
 
 ---
 
 ## Blockchain Security Researcher
-Halborn Inc
+Halborn Inc - United States
 
 ---
 
