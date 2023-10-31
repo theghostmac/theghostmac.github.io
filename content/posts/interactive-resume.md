@@ -1,6 +1,6 @@
 +++
 title = "Interactive Resume"
-date = "2023-07-09"
+date = "2023-10-31"
 description = "Find an interactive version of my resume here."
 
 [taxonomies]
