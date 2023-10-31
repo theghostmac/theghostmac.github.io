@@ -14,7 +14,6 @@ tags = ["showcase"]
 ---
 
 Hi, my name is **MacBobby**.
-
 I am a result-driven software engineer with 4 years of experience. 
 I have hands-on experience building FinTech and Blockchain software. 
 My interests lie in distributed systems and modern software architecture. 
