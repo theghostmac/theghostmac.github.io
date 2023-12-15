@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Simplifying Development with Docker Compose in Bankie.go
+            
+        </title>
+
+        
+            <meta property="og:title" content="Simplifying Development with Docker Compose in Bankie.go" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Using Docker Compose for provisioning multiple containers for the different resources in a multi-service application." />
+        
+    
+
+    
+        
+            <meta name="description" content="Using Docker Compose for provisioning multiple containers for the different resources in a multi-service application." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+
+    
+    
+        <script src=//theghostmac.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=//theghostmac.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=//theghostmac.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=//theghostmac.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=&#x2F;&#x2F;theghostmac.github.io&#x2F;>MacBobby Chibuzor</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=//theghostmac.github.io/js/themetoggle.js></script>
+        
+
+    <! -- GoadCounter analytics script -->
+        <script data-goatcounter="https://ghostmac.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Simplifying Development with Docker Compose in Bankie.go</h1>
+            <div class="meta">
+                
+                on  2023-10-31
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="simplifying-development-with-docker-compose-in-bankie-go">Simplifying Development with Docker Compose in Bankie.go</h1>
+<p><a href="https://github.com/theghostmac/bankie.go">Bankie.go</a>, a simple banking application built with Go, 
+has been updated to streamline the development and deployment processes using Docker Compose. 
+In this blog post, we will explore the benefits of this update and guide you through 
+the setup and usage of Go applications with Docker Compose.</p>
+<h2 id="why-docker-compose">Why Docker Compose?</h2>
+<p>Docker Compose is a powerful tool for defining and running multi-container Docker applications. 
+It simplifies the management of containers, their interdependencies, and 
+the overall environment setup. By incorporating Docker Compose into their Go applications, 
+developers can enjoy several advantages:</p>
+<ol>
+<li>
+<p><strong>Isolation</strong>: Each component of the application (e.g., the Go application, PostgreSQL database) runs in its own container, providing isolation. This separation ensures that dependencies and configurations don't conflict.</p>
+</li>
+<li>
+<p><strong>Portability</strong>: Docker Compose allows you to define the entire environment in a single configuration file (docker-compose.yaml). This file specifies how containers should interact and can be versioned with your codebase. This ensures consistent environments across different development and deployment setups.</p>
+</li>
+<li>
+<p><strong>Efficiency</strong>: Starting and stopping the application, including dependencies like databases, is simplified with Docker Compose. Developers can focus on writing code without worrying about environment configuration.</p>
+</li>
+<li>
+<p><strong>Easy Collaboration</strong>: Sharing the development environment with other team members becomes seamless. Everyone can set up and run the application using the same Docker Compose configuration.</p>
+</li>
+</ol>
+<h2 id="configuring-services-using-docker-compose">Configuring Services Using Docker Compose</h2>
+<p>When you have an application that uses at least two or more services, it is technically a right candidate for 
+Compose, especially if they talk with each other. For example, Bankie.go has a Go web server and a Postgres database.
+Before now, I run the Go web server using the <code>go run cmd/app/main.go</code> and then connect it to a Dockerized Postgres
+data store. This was apparently fine for me, but it could get better.</p>
+<h3 id="writing-the-dockerfile">Writing the Dockerfile</h3>
+<p>Docker Compose runs with the help of a Dockerfile. For my Go application, I have this as it's contents:</p>
+<pre data-lang="dockerfile" style="background-color:#fafafa;color:#383a42;" class="language-dockerfile "><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#a0a1a7;"># Start from a Golang base image
+</span><span style="color:#a626a4;">FROM</span><span> golang:1.20.4-alpine3.18 </span><span style="color:#a626a4;">AS </span><span style="color:#e45649;">builder
+</span><span>
+</span><span style="color:#a0a1a7;"># Set the working directory inside the container
+</span><span style="color:#a626a4;">WORKDIR </span><span>/app
+</span><span>
+</span><span style="color:#a0a1a7;"># Copy the Go modules manifests
+</span><span style="color:#a626a4;">COPY</span><span> go.mod go.sum ./
+</span><span>
+</span><span style="color:#a0a1a7;"># Download the Go modules
+</span><span style="color:#a626a4;">RUN </span><span>go mod download
+</span><span>
+</span><span style="color:#a0a1a7;"># Copy the source code into the container
+</span><span style="color:#a626a4;">COPY</span><span> . .
+</span><span>
+</span><span style="color:#a0a1a7;"># Build Bankie
+</span><span style="color:#a626a4;">RUN </span><span>go build -o /app/bankie ./cmd/app
+</span><span>
+</span><span style="color:#a0a1a7;"># Set the entrypoint to run Bankie
+</span><span style="color:#a626a4;">CMD </span><span>[</span><span style="color:#50a14f;">&quot;/app/bankie&quot;</span><span>]
+</span></code></pre>
+<p>This is quite performant and well explained just in case you need to understand what is going on.</p>
+<h3 id="writing-the-docker-compose-file">Writing the Docker Compose file.</h3>
+<p>The Docker Compose file is usually a <code>docker-compose.yml</code> file that houses the services and links them to a common
+network so they can listen to each other.
+Here's how to write one:</p>
+<ol>
+<li>Start with a version. The version I used as of the time of writing is 3.8:</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span></code></pre>
+<ol start="2">
+<li>Next, define the services. For Bankie.go, I need a postgres database and the Go web server itself.</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span><span>
+</span><span style="color:#e45649;">services</span><span>:
+</span><span>  </span><span style="color:#e45649;">postgres</span><span>:
+</span><span>
+</span><span>  </span><span style="color:#e45649;">bankie</span><span>:
+</span></code></pre>
+<ol start="3">
+<li>Now, I need to specify the images the should pull. I don't need an image for the Go web server though. 
+I only have to build an image out of it. So, the postgres service will receive/pull an image, while the bankie web
+server will build an image:</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span><span>
+</span><span style="color:#e45649;">services</span><span>:
+</span><span>  </span><span style="color:#e45649;">postgres</span><span>:
+</span><span>    </span><span style="color:#e45649;">image</span><span>: </span><span style="color:#50a14f;">postgres:latest
+</span><span>
+</span><span>  </span><span style="color:#e45649;">bankie</span><span>:
+</span><span>    </span><span style="color:#e45649;">build</span><span>:
+</span><span>      </span><span style="color:#e45649;">context</span><span>: </span><span style="color:#c18401;">.
+</span><span>      </span><span style="color:#e45649;">dockerfile</span><span>: </span><span style="color:#50a14f;">Dockerfile
+</span></code></pre>
+<p>We're making progress.
+4. Next, we need to specify the container names for these images:</p>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span><span>
+</span><span style="color:#e45649;">services</span><span>:
+</span><span>  </span><span style="color:#e45649;">postgres</span><span>:
+</span><span>    </span><span style="color:#e45649;">image</span><span>: </span><span style="color:#50a14f;">postgres:latest
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-postgres
+</span><span>
+</span><span>  </span><span style="color:#e45649;">bankie</span><span>:
+</span><span>    </span><span style="color:#e45649;">build</span><span>:
+</span><span>      </span><span style="color:#e45649;">context</span><span>: </span><span style="color:#c18401;">.
+</span><span>      </span><span style="color:#e45649;">dockerfile</span><span>: </span><span style="color:#50a14f;">Dockerfile
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-app
+</span></code></pre>
+<ol start="5">
+<li>After that, we specify the ports for each containers. Also, we will specify that the bankie service 
+depends on the postgres service, making the postgres service start first:</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span><span>
+</span><span style="color:#e45649;">services</span><span>:
+</span><span>  </span><span style="color:#e45649;">postgres</span><span>:
+</span><span>    </span><span style="color:#e45649;">image</span><span>: </span><span style="color:#50a14f;">postgres:latest
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-postgres
+</span><span>    </span><span style="color:#e45649;">ports</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">&quot;5432:5432&quot;
+</span><span>
+</span><span>  </span><span style="color:#e45649;">bankie</span><span>:
+</span><span>    </span><span style="color:#e45649;">build</span><span>:
+</span><span>      </span><span style="color:#e45649;">context</span><span>: </span><span style="color:#c18401;">.
+</span><span>      </span><span style="color:#e45649;">dockerfile</span><span>: </span><span style="color:#50a14f;">Dockerfile
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-app
+</span><span>    </span><span style="color:#e45649;">ports</span><span>:
+</span><span>      -   </span><span style="color:#50a14f;">&quot;8082:8082&quot;
+</span><span>    </span><span style="color:#e45649;">depends_on</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">postgres
+</span></code></pre>
+<ol start="6">
+<li>Now, we need to specify environment variables for both services:</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span><span>
+</span><span style="color:#e45649;">services</span><span>:
+</span><span>  </span><span style="color:#e45649;">postgres</span><span>:
+</span><span>    </span><span style="color:#e45649;">image</span><span>: </span><span style="color:#50a14f;">postgres:latest
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-postgres
+</span><span>    </span><span style="color:#e45649;">ports</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">&quot;5432:5432&quot;
+</span><span>    </span><span style="color:#e45649;">environment</span><span>:
+</span><span>      </span><span style="color:#e45649;">POSTGRES_DB</span><span>: </span><span style="color:#50a14f;">bankiestore
+</span><span>      </span><span style="color:#e45649;">POSTGRES_USER</span><span>: </span><span style="color:#50a14f;">postgres
+</span><span>      </span><span style="color:#e45649;">POSTGRES_PASSWORD</span><span>: </span><span style="color:#50a14f;">whateverisstrongenough
+</span><span>
+</span><span>  </span><span style="color:#e45649;">bankie</span><span>:
+</span><span>    </span><span style="color:#e45649;">build</span><span>:
+</span><span>      </span><span style="color:#e45649;">context</span><span>: </span><span style="color:#c18401;">.
+</span><span>      </span><span style="color:#e45649;">dockerfile</span><span>: </span><span style="color:#50a14f;">Dockerfile
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-app
+</span><span>    </span><span style="color:#e45649;">ports</span><span>:
+</span><span>      -   </span><span style="color:#50a14f;">&quot;8082:8082&quot;
+</span><span>    </span><span style="color:#e45649;">depends_on</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">postgres
+</span><span>    </span><span style="color:#e45649;">environment</span><span>:
+</span><span>      </span><span style="color:#e45649;">DB_HOST</span><span>: </span><span style="color:#50a14f;">postgres
+</span><span>      </span><span style="color:#e45649;">DB_PORT</span><span>: </span><span style="color:#c18401;">5432
+</span><span>      </span><span style="color:#e45649;">DB_USER</span><span>: </span><span style="color:#50a14f;">postgres
+</span><span>      </span><span style="color:#e45649;">DB_PASSWORD</span><span>: </span><span style="color:#50a14f;">whateverisstrongenough
+</span><span>      </span><span style="color:#e45649;">DB_NAME</span><span>: </span><span style="color:#50a14f;">bankiestore
+</span></code></pre>
+<p>Note that the passwords will be the same and must match the one used in the application, else, it will raise a
+FATAL error about authentication failure.
+7. Let's proceed to finish up with a network configuration:</p>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#383a42;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#e45649;">version</span><span>: </span><span style="color:#50a14f;">&quot;3.8&quot;
+</span><span>
+</span><span style="color:#e45649;">services</span><span>:
+</span><span>  </span><span style="color:#e45649;">postgres</span><span>:
+</span><span>    </span><span style="color:#e45649;">image</span><span>: </span><span style="color:#50a14f;">postgres:latest
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-postgres
+</span><span>    </span><span style="color:#e45649;">ports</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">&quot;5432:5432&quot;
+</span><span>    </span><span style="color:#e45649;">environment</span><span>:
+</span><span>      </span><span style="color:#e45649;">POSTGRES_DB</span><span>: </span><span style="color:#50a14f;">bankiestore
+</span><span>      </span><span style="color:#e45649;">POSTGRES_USER</span><span>: </span><span style="color:#50a14f;">postgres
+</span><span>      </span><span style="color:#e45649;">POSTGRES_PASSWORD</span><span>: </span><span style="color:#50a14f;">whateverisstrongenough
+</span><span>    </span><span style="color:#e45649;">networks</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">bankie-network
+</span><span>
+</span><span>  </span><span style="color:#e45649;">bankie</span><span>:
+</span><span>    </span><span style="color:#e45649;">build</span><span>:
+</span><span>      </span><span style="color:#e45649;">context</span><span>: </span><span style="color:#c18401;">.
+</span><span>      </span><span style="color:#e45649;">dockerfile</span><span>: </span><span style="color:#50a14f;">Dockerfile
+</span><span>    </span><span style="color:#e45649;">container_name</span><span>: </span><span style="color:#50a14f;">bankie-app
+</span><span>    </span><span style="color:#e45649;">ports</span><span>:
+</span><span>      -   </span><span style="color:#50a14f;">&quot;8082:8082&quot;
+</span><span>    </span><span style="color:#e45649;">depends_on</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">postgres
+</span><span>    </span><span style="color:#e45649;">environment</span><span>:
+</span><span>      </span><span style="color:#e45649;">DB_HOST</span><span>: </span><span style="color:#50a14f;">postgres
+</span><span>      </span><span style="color:#e45649;">DB_PORT</span><span>: </span><span style="color:#c18401;">5432
+</span><span>      </span><span style="color:#e45649;">DB_USER</span><span>: </span><span style="color:#50a14f;">postgres
+</span><span>      </span><span style="color:#e45649;">DB_PASSWORD</span><span>: </span><span style="color:#50a14f;">whateverisstrongenough
+</span><span>      </span><span style="color:#e45649;">DB_NAME</span><span>: </span><span style="color:#50a14f;">bankiestore
+</span><span>    </span><span style="color:#e45649;">networks</span><span>:
+</span><span>      - </span><span style="color:#50a14f;">bankie-network
+</span><span>
+</span><span style="color:#e45649;">networks</span><span>:
+</span><span>  </span><span style="color:#e45649;">bankie-network</span><span>:
+</span></code></pre>
+<p>This concludes our Docker Compose file. All we have to do is run <code>docker-compose up</code> to see our application.
+I used a <code>retry</code> package to delay the bankie service from trying to establish a connection to the 
+postgres service prematurely:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#a626a4;">package </span><span style="color:#e45649;">main
+</span><span>
+</span><span style="color:#a626a4;">import </span><span>(
+</span><span>	</span><span style="color:#e45649;">retry </span><span style="color:#50a14f;">&quot;github.com/avast/retry-go&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;github.com/theghostmac/bankie.go/api/rest&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;github.com/theghostmac/bankie.go/common/logger&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;github.com/theghostmac/bankie.go/database/migrations&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;github.com/theghostmac/bankie.go/database/users&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;log&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;time&quot;
+</span><span>)
+</span><span>
+</span><span style="color:#a626a4;">func </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>	</span><span style="color:#e45649;">migrations</span><span>.</span><span style="color:#e45649;">DbConn</span><span>()
+</span><span>
+</span><span>	</span><span style="color:#a0a1a7;">// Define a retry strategy
+</span><span>	</span><span style="color:#e45649;">retryOptions </span><span style="color:#a626a4;">:= </span><span>[]</span><span style="color:#e45649;">retry</span><span>.</span><span style="color:#e45649;">Option</span><span>{
+</span><span>		</span><span style="color:#e45649;">retry</span><span>.</span><span style="color:#e45649;">Attempts</span><span>(</span><span style="color:#c18401;">5</span><span>),
+</span><span>		</span><span style="color:#e45649;">retry</span><span>.</span><span style="color:#e45649;">Delay</span><span>(</span><span style="color:#c18401;">1 </span><span style="color:#a626a4;">* </span><span style="color:#e45649;">time</span><span>.</span><span style="color:#e45649;">Second</span><span>),
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="color:#a0a1a7;">// Wrap the connection establishment in a retry block.
+</span><span>	</span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">retry</span><span>.</span><span style="color:#e45649;">Do</span><span>(</span><span style="color:#a626a4;">func</span><span>() </span><span style="color:#a626a4;">error </span><span>{
+</span><span>		</span><span style="color:#e45649;">store</span><span>, </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">users</span><span>.</span><span style="color:#e45649;">NewUserRepository</span><span>()
+</span><span>		</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>			</span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>		}
+</span><span>
+</span><span>		</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">store</span><span>.</span><span style="color:#e45649;">Init</span><span>(); </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>			</span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>		}
+</span><span>
+</span><span>		</span><span style="color:#e45649;">serverEngine </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">rest</span><span>.</span><span style="color:#e45649;">NewAPIServer</span><span>(</span><span style="color:#50a14f;">&quot;:8082&quot;</span><span>, </span><span style="color:#e45649;">store</span><span>)
+</span><span>		</span><span style="color:#e45649;">serverEngine</span><span>.</span><span style="color:#e45649;">StartServer</span><span>()
+</span><span>		</span><span style="color:#e45649;">logger</span><span>.</span><span style="color:#e45649;">InfoLogs</span><span>(</span><span style="color:#50a14f;">&quot;Server has started up...</span><span style="color:#0997b3;">\n</span><span style="color:#50a14f;">&quot;</span><span>)
+</span><span>		</span><span style="color:#e45649;">logger</span><span>.</span><span style="color:#e45649;">ErrorLogs</span><span>(</span><span style="color:#50a14f;">&quot;Hello Banker, API Server is running successfully...</span><span style="color:#0997b3;">\n</span><span style="color:#50a14f;">&quot;</span><span>)
+</span><span>
+</span><span>		</span><span style="color:#a626a4;">return </span><span style="color:#c18401;">nil
+</span><span>	}, </span><span style="color:#e45649;">retryOptions</span><span style="color:#a626a4;">...</span><span>)
+</span><span>
+</span><span>	</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>		</span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatalf</span><span>(</span><span style="color:#50a14f;">&quot;Failed to establish a database connection after retries: </span><span style="color:#c18401;">%v</span><span style="color:#50a14f;">&quot;</span><span>, </span><span style="color:#e45649;">err</span><span>)
+</span><span>	}
+</span><span>}
+</span></code></pre>
+<p>This is due to obvious reasons. You might want to do similar in your application if it arises.</p>
+<h2 id="setting-up-bankie-go-with-docker-compose">Setting Up Bankie.go with Docker Compose</h2>
+<p>Here's how you can set up and run your Go application using Docker Compose. We will use Bankie.go as the example app:</p>
+<ol>
+<li>
+<p><strong>Clone the Repository</strong>:</p>
+<p>Start by cloning the Bankie.go repository to your local machine using the following command:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>git clone https://github.com/theghostmac/bankie.go.git
+</span></code></pre>
+</li>
+<li>
+<p><strong>Navigate to the Project Directory</strong>:</p>
+<p>Change your working directory to the project folder:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cd bankie.go
+</span></code></pre>
+</li>
+<li>
+<p><strong>Run Docker Compose</strong>:</p>
+<p>With Docker Compose, you can easily start the entire application stack, including the Go application and the PostgreSQL database. Use the following command to start Bankie.go:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>docker-compose up
+</span></code></pre>
+<p>Docker Compose reads the configuration defined in <code>docker-compose.yml</code> and sets up the environment accordingly. You'll see the application and database containers being created and initialized.</p>
+</li>
+</ol>
+<p><img src="/imgs/bankie_running.png" alt="Application is running" /></p>
+<ol start="4">
+<li>
+<p><strong>Interact with Bankie.go</strong>:</p>
+<p>Once the application is running, you can interact with Bankie.go using a RESTful API. The available endpoints include:</p>
+<ul>
+<li><code>POST /accounts</code>: Create a new bank account with the account holder's name and an initial deposit amount.</li>
+<li><code>GET /accounts/:id</code>: Retrieve information about a specific account.</li>
+<li><code>POST /accounts/:id/deposit</code>: Make a deposit to a specific account.</li>
+<li><code>POST /accounts/:id/withdraw</code>: Make a withdrawal from a specific account.</li>
+<li><code>POST /accounts/:id/transfer</code>: Transfer funds from one account to another.</li>
+<li><code>GET /accounts/:id/transactions</code>: Retrieve the transaction history of a specific account.</li>
+</ul>
+<p>Replace <code>:id</code> with the actual account ID in the endpoint URLs.</p>
+</li>
+</ol>
+<h2 id="example-usage">Example Usage</h2>
+<p>Here's an example of using <code>curl</code> to create an account and retrieve its information:</p>
+<ol>
+<li>
+<p><strong>Create a New Account</strong>:</p>
+<p>Run the following <code>curl</code> command to create a new account:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>curl -X POST -H &quot;Content-Type: application/json&quot; -d &#39;{
+</span><span>    &quot;FirstName&quot;: &quot;John&quot;,
+</span><span>    &quot;LastName&quot;: &quot;Doe&quot;,
+</span><span>    &quot;Email&quot;: &quot;johndoe@example.com&quot;
+</span><span>}&#39; http://localhost:8082/accounts
+</span></code></pre>
+<p>You'll receive a JSON response with the account details.</p>
+</li>
+<li>
+<p><strong>Retrieve Account Information</strong>:</p>
+<p>To retrieve information about the newly created account, use the following <code>curl</code> command:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>curl http://localhost:8082/accounts/1
+</span></code></pre>
+<p>This command will return a JSON response with the account details.</p>
+</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Docker Compose simplifies the development and deployment of multi-container applications like Bankie.go. 
+With a single command, you can set up the entire application stack, allowing you to focus on coding and 
+not on environment configuration. It also promotes consistency and collaboration among development teams.</p>
+<p>By updating Bankie.go to use Docker Compose, we've made it even more developer-friendly, 
+enabling you to build, run, and test the application effortlessly. 
+Give it a try, and enjoy a smoother development experience with your Go applications!</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=//theghostmac.github.io/tags/showcase/>showcase</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/projects/>projects</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/go/>Go</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;theghostmac&#x2F; title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ghostmac9 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=mailto:macbobbychibuzor@gmail.com title=mail>
+            <i data-feather=mail></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2023 © ghostmac 👻 |
+      <a href="https://storage.rxresu.me/clp9ftfft02ei9hun13uvudvi/resumes/clp9kx0hk0m0h5499u2jklr1m.pdf">My CV</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

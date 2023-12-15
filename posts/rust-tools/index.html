@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Rust-based CLI tools you might like
+            
+        </title>
+
+        
+            <meta property="og:title" content="Rust-based CLI tools you might like" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Blog post about Rust-based CLI tools you should be using." />
+        
+    
+
+    
+        
+            <meta name="description" content="Blog post about Rust-based CLI tools you should be using." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+
+    
+    
+        <script src=//theghostmac.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=//theghostmac.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=//theghostmac.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=//theghostmac.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=&#x2F;&#x2F;theghostmac.github.io&#x2F;>MacBobby Chibuzor</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=//theghostmac.github.io/js/themetoggle.js></script>
+        
+
+    <! -- GoadCounter analytics script -->
+        <script data-goatcounter="https://ghostmac.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Rust-based CLI tools you might like</h1>
+            <div class="meta">
+                
+                on  2023-07-09
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="hi-there-wave">Hi there 👋</h1>
+<p>This post is about some random tools built with Rust that I found while surfing around social media and thought you might like—just as I did.</p>
+<p>Without wasting too much of your time, let’s explore! 🏄‍♂️</p>
+<h1 id="starship-rs">Starship.rs</h1>
+<p>The first is <a href="https://starship.rs">Starship</a>—a command line tool. Check the descriptions in the image below to know what Starship does:</p>
+<p><img src="/imgs/starshiprs.png" alt="Starship.rs" /></p>
+<h3 id="quick-intro-to-shell-customizations-and-installation-of-starship">Quick intro to shell customizations and installation of <code>starship</code></h3>
+<p>You might at least be familiar with <code>bash</code> and <code>zsh</code> terminals by now. You probably already use either. To install <code>starship</code>, run:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">brew</span><span> install starship
+</span></code></pre>
+<p>Then proceed to add this to either you <code>~/.zshrc</code> or <code>~/.bashrc</code> file or both:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#0184bc;">eval </span><span style="color:#50a14f;">&quot;$(</span><span style="color:#e45649;">starship</span><span style="color:#50a14f;"> init zsh)&quot; </span><span style="color:#a0a1a7;"># for zsh
+</span><span style="color:#0184bc;">eval </span><span style="color:#50a14f;">&quot;$(</span><span style="color:#e45649;">starship</span><span style="color:#50a14f;"> init bash)&quot; </span><span style="color:#a0a1a7;"># for bash
+</span></code></pre>
+<p>The tilde (~) sign refers to your home directory where these files are located and hidden. If you don’t already have it, run this command to create it:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">touch ~</span><span>/.zshrc </span><span style="color:#a0a1a7;"># creates the .zshrc file in home dir
+</span></code></pre>
+<p>Once it’s installed, run this command to open it:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">open ~</span><span>/.zshrc
+</span></code></pre>
+<p>Or press <strong>Cmd</strong> + <strong>Shift</strong> + <strong>.</strong> on your macOS.</p>
+<p><img src="/imgs/install-starship.png" alt="Install Starship on MacOS" /></p>
+<p>You can <a href="https://starship.rs/presets/">select existing themes</a> or <a href="https://starship.rs/config/">configure your own</a> if you know how to use Rust’s <code>Cargo.toml</code> file syntax.</p>
+<p>Note that you can customize <code>starship</code> for you particular language and terminal; check the configuration page on how to go about it.</p>
+<p><img src="/imgs/starship-terminal.png" alt="Starship Terminal" /></p>
+<aside>
+🎯 If you don’t use macOS, you can find the installation guide for Starship [here](https://starship.rs/guide/).
+</aside>
+<h1 id="lazygit">Lazygit</h1>
+<p>Lazygit helps you manage your git version control processes. You can download the updated tool from here:</p>
+<p>https://github.com/jesseduffield/lazygit</p>
+<h2 id="quick-usage">Quick usage</h2>
+<p>After installation, you just have to run the command below to start using lazygit:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">lazygit
+</span></code></pre>
+<p>Just that, and a screen appears on your terminal:</p>
+<p><img src="/imgs/lazygit.png" alt="Lazygit" /></p>
+<h1 id="bat">Bat</h1>
+<p>Bat is the modern replacement for your UNIX <code>cat</code> command. You can learn about the advanced features it offers from the GitHub page here: https://github.com/sharkdp/bat.</p>
+<p>To install <code>bat</code> on macOS, run:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">brew</span><span> install bat
+</span></code></pre>
+<h2 id="quick-usage-of-bat">Quick usage of <code>bat</code></h2>
+<p>You can view an entire file content with <code>bat</code> by running:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">bat</span><span> filename.extension
+</span></code></pre>
+<p>For example, I ran the command to view a Go source file below:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">bat</span><span> arraySolutions.go
+</span></code></pre>
+<p><a href="https://file.notion.so/f/s/cbfc8212-5a3c-42eb-bff5-f9498b87938f/Untitled.mp4?id=36ae920d-cce0-4c70-b05c-c5553ad7fa87&amp;table=block&amp;spaceId=77a131a6-6347-4e0d-b098-1474be9ec9b8&amp;expirationTimestamp=1688954400000&amp;signature=_hDTlEYWemyiZbu12Ebzu9-vxct2KA_xs8NduRtEQkM&amp;downloadName=Untitled.mp4">See video</a></p>
+<p>Video compressed from 8.8mb to 1.9mb with veed.io</p>
+<p>Use <code>q</code> to quit the session. You can also learn more on how to use <code>bat</code> here: https://github.com/sharkdp/bat.</p>
+<h1 id="zoxide">zoxide</h1>
+<p><code>zoxide</code> is a smart CLI command that replaces <code>cd</code>. With it, you can quickly jump from one directory to the other without writing a bunch of confusing <code>cd ../../enter_here/exit_there</code>.</p>
+<p>Install <code>zoxide</code> on macOS by running:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">brew</span><span> install zoxide
+</span></code></pre>
+<p>Learn about how to use zoxide from the official GitHub page here: https://github.com/ajeetdsouza/zoxide. You will also find instructions for installing on other operating systems.</p>
+<p>After installation, you have to add <code>zoxide</code> support for your shell before attempting to use it. Add this line to your <code>/.zshrc</code> file if you use Oh My Zsh shell:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#0184bc;">eval </span><span style="color:#50a14f;">&quot;$(</span><span style="color:#e45649;">zoxide</span><span style="color:#50a14f;"> init zsh)&quot; 
+</span></code></pre>
+<p>Remember to Save changes with <strong>Cmd</strong> + <strong>S</strong>.</p>
+<h2 id="quick-usage-of-zoxide">Quick Usage of <code>zoxide</code></h2>
+<p>In principle, <code>zoxide</code> says, “once you did it once before, you don’t have to do it again.” It’s like a taxi driver that remembers where you always go, so you don’t have to tell him. To demonstrate, let’s go into a project directory from my home directory, then come back to home, and then try to jump directly to the project directory without writing the exact absolute path:</p>
+<p><img src="/imgs/zoxide-demo.png" alt="Zoxide Demo" /></p>
+<ul>
+<li>From /Users/macbobbychibuzor, I wrote a very long path to a Geth project repository</li>
+<li>Next, I displayed the repository I’m now in</li>
+<li>Next, I navigated back to my personal home</li>
+<li>Afterwards, I tried accessing the project repository, and boom! I’m in.</li>
+</ul>
+<h1 id="lsd">LSD</h1>
+<p><a href="https://github.com/lsd-rs/lsd">LSD</a> is the replacement for <code>ls</code>, which is originally the UNIX command to list the contents of a directory.</p>
+<p>Recap:</p>
+<ul>
+<li><code>ls</code>: lists contents of a directory</li>
+<li><code>ll</code>: lists contents of a directory and their file permissions</li>
+<li>lsd: lists all of the above, including more details</li>
+</ul>
+<p><img src="/imgs/lsd.png" alt="LSD Demo" /></p>
+<p>To install, run:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">brew</span><span> install lsd
+</span></code></pre>
+<p>You can replace <code>ls</code> with <code>lsd</code> or make a sub-command like <code>ls --d</code> to run <code>lsd</code> by adding an alias to the <code>/.zshrc</code> file:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#0184bc;">alias </span><span style="color:#50a14f;">&#39;ls --d&#39;</span><span style="color:#a626a4;">=</span><span style="color:#50a14f;">lsd
+</span></code></pre>
+<p>Or you can decide to have a new command:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#0184bc;">alias list</span><span style="color:#a626a4;">=</span><span style="color:#50a14f;">lsd </span><span style="color:#a0a1a7;"># or temporarily run it on the terminal instead of saving.
+</span></code></pre>
+<h1 id="exa">exa</h1>
+<p><a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbWtUWnVsZ1lKSUFXaW52QVhocjRETXpnSGlBZ3xBQ3Jtc0tuUDFHSGxYeWUzQWxpM19XWjhtTFNvbDZPSUFGejNnWmJ0dFZrdXFKcGpnZzk1Y2lEMi1LZXBCZ3ozR1c5RGxqN09sa3M2N1hoTHJVOVNnNGU4SWVOeVJMR01DUXEzajAyY3RLRXJXMXZVX2NxOS1UUQ&amp;q=https%3A%2F%2Fthe.exa.website%2F&amp;v=stCXFxC4OH0">exa</a> is another alternative for <code>lsd</code>. To install, run:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">brew</span><span> install exa
+</span><span style="color:#a0a1a7;"># since installation is long, add the say command
+</span><span style="color:#e45649;">brew</span><span> install exa </span><span style="color:#a626a4;">; </span><span style="color:#e45649;">say </span><span style="color:#50a14f;">&quot;I just completed the exa download, boss. Come back.&quot;
+</span></code></pre>
+<h2 id="usage">Usage</h2>
+<p>You have to <a href="https://the.exa.website/docs">learn</a> about the <code>--options</code> and <code>--flags</code> you can add to exa execution to use it. Here’s an example using <code>—-long</code> <code>—-header</code>:</p>
+<p><img src="/imgs/exa.png" alt="Exa Demo" /></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This list is going to be updated as I find new tools built with Rust.</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=//theghostmac.github.io/tags/showcase/>showcase</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/tools/>tools</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/rust/>Rust</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/posts/>posts</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;theghostmac&#x2F; title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ghostmac9 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=mailto:macbobbychibuzor@gmail.com title=mail>
+            <i data-feather=mail></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2023 © ghostmac 👻 |
+      <a href="https://storage.rxresu.me/clp9ftfft02ei9hun13uvudvi/resumes/clp9kx0hk0m0h5499u2jklr1m.pdf">My CV</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

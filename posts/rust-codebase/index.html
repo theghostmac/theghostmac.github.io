@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Structuring a Rust Codebase: Exploring Rust&#x27;s Module System for Code Organization
+            
+        </title>
+
+        
+            <meta property="og:title" content="Structuring a Rust Codebase: Exploring Rust&#x27;s Module System for Code Organization" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Understand the Rust Modules system by building an authentication service." />
+        
+    
+
+    
+        
+            <meta name="description" content="Understand the Rust Modules system by building an authentication service." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+
+    
+    
+        <script src=//theghostmac.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=//theghostmac.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=//theghostmac.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=//theghostmac.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=&#x2F;&#x2F;theghostmac.github.io&#x2F;>MacBobby Chibuzor</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=//theghostmac.github.io/js/themetoggle.js></script>
+        
+
+    <! -- GoadCounter analytics script -->
+        <script data-goatcounter="https://ghostmac.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Structuring a Rust Codebase: Exploring Rust&#x27;s Module System for Code Organization</h1>
+            <div class="meta">
+                
+                on  2023-07-09
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <hr />
+<h1 id="introduction">Introduction</h1>
+<p>Structuring a Rust codebase can be so frustrating for beginners. I experienced this issues multiple times while starting out new projects in Rust. Typically, I default to the hexagonal architecture while building a web project in Golang, but replicating in Rust has not been exactly straight forward.</p>
+<p>In this article, we will explore the Rust’s module system in detail. We will cover packages, crates and modules, and how best to structure them.</p>
+<p><img src="/imgs/authservice-rs.png" alt="AuthService in Rust" /></p>
+<h2 id="adding-visibility-to-components">Adding visibility to components</h2>
+<p>When you start out building software that has different parts of services, you will probably create different folders to house specific services or parts.</p>
+<h3 id="golang-example">Golang Example</h3>
+<p>In Golang for example, an authentication service codebase can look like (bare-bones project <a href="https://github.com/theghostmac/authService">here</a>):</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>- authentication-service/
+</span><span>  |- main.go
+</span><span>  |- go.mod
+</span><span>  |- api/
+</span><span>     |- handlers.go
+</span><span>     |- routes.go
+</span><span>  |- authentication/
+</span><span>     |- user.go
+</span><span>     |- token.go
+</span><span>     |- repository.go
+</span><span>     |- service.go
+</span><span>  |- storage/
+</span><span>     |- database.go
+</span><span>  |- utils/
+</span><span>     |- encryption.go
+</span></code></pre>
+<p>The components (functions, custom types, etc.) in any folder can be used in another folder automatically when you define this components to have a capital initial. This is the visibility rule in Go. The routing service (<code>api/routes.go</code>) for the API has the following logic:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#a626a4;">package </span><span style="color:#e45649;">api
+</span><span>
+</span><span style="color:#a626a4;">import </span><span>(
+</span><span>	</span><span style="color:#50a14f;">&quot;github.com/gorilla/mux&quot;
+</span><span>)
+</span><span>
+</span><span style="color:#a626a4;">func </span><span style="color:#0184bc;">SetupRouter</span><span>() </span><span style="color:#a626a4;">*</span><span style="color:#e45649;">mux</span><span>.</span><span style="color:#a626a4;">Router </span><span>{
+</span><span>	</span><span style="color:#e45649;">router </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">mux</span><span>.</span><span style="color:#e45649;">NewRouter</span><span>()
+</span><span>	</span><span style="color:#e45649;">router</span><span>.</span><span style="color:#e45649;">HandleFunc</span><span>(</span><span style="color:#50a14f;">&quot;/signup&quot;</span><span>, </span><span style="color:#e45649;">SignupHandler</span><span>).</span><span style="color:#e45649;">Methods</span><span>(</span><span style="color:#50a14f;">&quot;POST&quot;</span><span>)
+</span><span>	</span><span style="color:#e45649;">router</span><span>.</span><span style="color:#e45649;">HandleFunc</span><span>(</span><span style="color:#50a14f;">&quot;/login&quot;</span><span>, </span><span style="color:#e45649;">LoginHandler</span><span>).</span><span style="color:#e45649;">Methods</span><span>(</span><span style="color:#50a14f;">&quot;POST&quot;</span><span>)
+</span><span>
+</span><span>	</span><span style="color:#a626a4;">return </span><span style="color:#e45649;">router
+</span><span>}
+</span></code></pre>
+<p>The entry point (<code>main.go</code> file) imports and uses the SetupRouter method in <code>api/routes.go</code>:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#a626a4;">package </span><span style="color:#e45649;">main
+</span><span>
+</span><span style="color:#a626a4;">import </span><span>(
+</span><span>	</span><span style="color:#50a14f;">&quot;github.com/theghostmac/authService/api&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;log&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;net/http&quot;
+</span><span>)
+</span><span>
+</span><span style="color:#a626a4;">func </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>	</span><span style="color:#e45649;">router </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">api</span><span>.</span><span style="color:#e45649;">SetupRouter</span><span>()
+</span><span>	</span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">http</span><span>.</span><span style="color:#e45649;">ListenAndServe</span><span>(</span><span style="color:#50a14f;">&quot;:8080&quot;</span><span>, </span><span style="color:#e45649;">router</span><span>))
+</span><span>}
+</span></code></pre>
+<p>This works without any errors because of the visibility rule in Go. These folders are called modules, or tiniest units of software that can be executed or used by themselves.</p>
+<p>A single source file can be a module, so we can actually put the <code>routes.go</code> file in the root directory and the <code>SetupRouter()</code> method will work as is, with little adjustments like:</p>
+<ul>
+<li>removing the unused import <code>“github.com/theghostmac/authService/api”</code>,</li>
+<li>renaming <code>package api</code> to <code>package main</code>.</li>
+</ul>
+<p>Now, I believe you’ve refreshed your memory on modules. Let’s see how this applies to Rust.</p>
+<h3 id="rust-implementation-with-rocket">Rust implementation with Rocket</h3>
+<p>Say a Rust developer wants to recreate the authentication service with Rust, they would write all the functions and type declaration in the <code>src/main.rs</code> because it is easy to do so.</p>
+<blockquote>
+<p>Writing tests in for a simple Rust function is as simple as scrolling down in that same source file and using the <code>#[test]</code> compiler attributes.</p>
+</blockquote>
+<p>However, from normal software engineering best practices, the Single Responsibility Principle in the SOLID principles teach that “each micro service should have a single responsibility or focus on one specific business capability.”</p>
+<p>Having a standalone <code>main.rs</code> file handle the service would look like:</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#[</span><span style="color:#e45649;">macro_use</span><span>] </span><span style="color:#a626a4;">extern crate</span><span> rocket;
+</span><span>
+</span><span style="color:#a626a4;">use </span><span>diesel::prelude::</span><span style="color:#a626a4;">*</span><span>;
+</span><span style="color:#a626a4;">use </span><span>std::env;
+</span><span style="color:#a626a4;">use </span><span>rocket::response::status::Created;
+</span><span style="color:#a626a4;">use </span><span>rocket::response::status::Unauthorized;
+</span><span>
+</span><span style="color:#a626a4;">mod </span><span>authentication {
+</span><span>    </span><span style="color:#a626a4;">use </span><span>std::fmt::Error;
+</span><span>    </span><span style="color:#a626a4;">use super</span><span>::</span><span style="color:#a626a4;">*</span><span>;
+</span><span>    </span><span style="color:#a626a4;">use </span><span>diesel::PgConnection;
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">pub struct </span><span>User {
+</span><span>        </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">id</span><span>: </span><span style="color:#a626a4;">i32</span><span>,
+</span><span>        </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">username</span><span>: String,
+</span><span>        </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">password</span><span>: String,
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">impl </span><span>User {
+</span><span>        </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">new</span><span>(</span><span style="color:#e45649;">id</span><span>: </span><span style="color:#a626a4;">i32</span><span>, </span><span style="color:#e45649;">username</span><span>: String, </span><span style="color:#e45649;">password</span><span>: String) -&gt; </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>            </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>                id,
+</span><span>                username,
+</span><span>                password,
+</span><span>            }
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">save</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>, </span><span style="color:#e45649;">connection</span><span>: </span><span style="color:#a626a4;">&amp;</span><span>PgConnection) -&gt; Result&lt;(), Error&gt; {
+</span><span>            </span><span style="color:#a626a4;">use crate</span><span>::schema::user::dsl::</span><span style="color:#a626a4;">*</span><span>;
+</span><span>
+</span><span>            </span><span style="color:#a626a4;">let</span><span> new_user </span><span style="color:#a626a4;">=</span><span> NewUser {
+</span><span>                username: </span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>.username,
+</span><span>                password: </span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>.password,
+</span><span>            };
+</span><span>
+</span><span>            diesel::insert_into(users)
+</span><span>                .</span><span style="color:#0184bc;">values</span><span>(</span><span style="color:#a626a4;">&amp;</span><span>new_user)
+</span><span>                .</span><span style="color:#0184bc;">execute</span><span>(connection)</span><span style="color:#a626a4;">?</span><span>;
+</span><span>
+</span><span>            Ok(())
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">delete</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>) {
+</span><span>            </span><span style="color:#a0a1a7;">// delete user
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">pub struct </span><span>Token {
+</span><span>        </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">id</span><span>: </span><span style="color:#a626a4;">i32</span><span>,
+</span><span>        </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">user_id</span><span>: </span><span style="color:#a626a4;">i32</span><span>,
+</span><span>        </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">token</span><span>: String,
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">impl </span><span>Token {
+</span><span>        </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">new</span><span>(</span><span style="color:#e45649;">id</span><span>: </span><span style="color:#a626a4;">i32</span><span>, </span><span style="color:#e45649;">user_id</span><span>: </span><span style="color:#a626a4;">i32</span><span>, </span><span style="color:#e45649;">token</span><span>: String) -&gt; </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>           </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>               id,
+</span><span>               user_id,
+</span><span>               token,
+</span><span>           }
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">save</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>) {
+</span><span>            </span><span style="color:#a0a1a7;">// save token
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">delete</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>) {
+</span><span>            </span><span style="color:#a0a1a7;">// delete token
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#a626a4;">use </span><span>authentication::</span><span style="color:#a626a4;">*</span><span>;
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">establish_connection</span><span>() -&gt; PgConnection {
+</span><span>    Ok(</span><span style="color:#0184bc;">dotenv</span><span>());
+</span><span>    </span><span style="color:#a626a4;">let</span><span> database_url </span><span style="color:#a626a4;">= </span><span>env::var(</span><span style="color:#50a14f;">&quot;DATABASE_URL&quot;</span><span>).</span><span style="color:#0184bc;">expect</span><span>(</span><span style="color:#50a14f;">&quot;DATABASE_URL not set&quot;</span><span>);
+</span><span>    PgConnection::establish(</span><span style="color:#a626a4;">&amp;</span><span>database_url)
+</span><span>        .</span><span style="color:#0184bc;">expect</span><span>(</span><span style="color:#a626a4;">&amp;</span><span>format!(</span><span style="color:#50a14f;">&quot;Error connecting to </span><span style="color:#c18401;">{}</span><span style="color:#50a14f;">&quot;</span><span>, database_url))
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#e45649;">post</span><span>(</span><span style="color:#50a14f;">&quot;/signup&quot;</span><span>)]
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">signup_handler</span><span>() -&gt; Created&lt;String&gt; {
+</span><span>    </span><span style="color:#a626a4;">let</span><span> connection </span><span style="color:#a626a4;">= </span><span style="color:#0184bc;">establish_connection</span><span>();
+</span><span>    </span><span style="color:#a626a4;">let</span><span> user </span><span style="color:#a626a4;">= </span><span>User::new(</span><span style="color:#c18401;">1</span><span>, </span><span style="color:#50a14f;">&quot;username&quot;</span><span>.</span><span style="color:#0184bc;">to_owned</span><span>(), </span><span style="color:#50a14f;">&quot;password&quot;</span><span>.</span><span style="color:#0184bc;">to_owned</span><span>());
+</span><span>    user.</span><span style="color:#0184bc;">save</span><span>(</span><span style="color:#a626a4;">&amp;</span><span>connection);
+</span><span>    Created::new(</span><span style="color:#50a14f;">&quot;Signup successful&quot;</span><span>.</span><span style="color:#0184bc;">to_owned</span><span>())
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#e45649;">post</span><span>(</span><span style="color:#50a14f;">&quot;/login&quot;</span><span>)]
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">login_handler</span><span>() -&gt; Result&lt;</span><span style="color:#a626a4;">&amp;&#39;static str</span><span>, Unauthorized&lt;()&gt;&gt; {
+</span><span>    Ok(</span><span style="color:#50a14f;">&quot;Login succesful&quot;</span><span>)
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#e45649;">launch</span><span>]
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">rocket</span><span>() -&gt; </span><span style="color:#a626a4;">_ </span><span>{
+</span><span>    rocket::build().</span><span style="color:#0184bc;">mount</span><span>(</span><span style="color:#50a14f;">&quot;/signup&quot;</span><span>, routes![signup_handler])
+</span><span>        .</span><span style="color:#0184bc;">mount</span><span>(</span><span style="color:#50a14f;">&quot;/login&quot;</span><span>, routes![login_handler])
+</span><span>}
+</span></code></pre>
+<p>If you build and run it with cargo, it works. The only external module to be used would be the auto-generated <code>migrations</code> from diesel, the ORM and query builder for Rust. Let’s see how to use Rust modules to make this service more readable.</p>
+<h2 id="modules-in-rust">Modules in Rust</h2>
+<p>Modules in Rust are similar to those in Go. You can create custom modules (or folders, if you like) to serve different purposes. You can also leave single source files in the <code>src/</code> directory of your Rust codebase to act as modules.</p>
+<p>You will understand better when we refactor the <code>main.rs</code> file to into different modules (bare-bones project <a href="https://github.com/theghostmac/authservice-rs">here</a>):</p>
+<ol>
+<li>
+<p>Create three directories inside of <code>src/</code> called <code>modules</code>, <code>entities</code>, and <code>repositories</code>. Create a submodule inside <code>modules</code> directory called <code>authentication</code>.</p>
+</li>
+<li>
+<p>Create three files: <code>user.rs</code> in <code>entities</code> directory, <code>authentication.rs</code> in <code>authentication</code> directory under <code>modules</code>, and <code>user_repository.rs</code> in <code>repositories</code> directory.</p>
+</li>
+<li>
+<p>Create a <code>mod.rs</code> file in the three directories. Add <code>pub mod &lt;file name without .rs extension&gt;</code> to the <code>mod.rs</code> files, e.g. in <code>entities</code>, the <code>mod.rs</code> file while have only <code>pub mod user;</code> in it. The codebase structure will look like:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>src/
+</span><span>├── entities
+</span><span>│  ├── mod.rs
+</span><span>│  └── user.rs
+</span><span>├── main.rs
+</span><span>├── modules
+</span><span>│  ├── authentication.rs
+</span><span>│  └── mod.rs
+</span><span>└── repositories
+</span><span>   ├── mod.rs
+</span><span>   └── user_repository.rs
+</span></code></pre>
+</li>
+<li>
+<p>Add the following code to each:</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a0a1a7;">// user.rs
+</span><span style="color:#a626a4;">pub struct </span><span>User {
+</span><span>    </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">id</span><span>: </span><span style="color:#a626a4;">i32</span><span>,
+</span><span>    </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">username</span><span>: String,
+</span><span>    </span><span style="color:#a626a4;">pub </span><span style="color:#e45649;">password</span><span>: String,
+</span><span>}
+</span><span>
+</span><span style="color:#a626a4;">impl </span><span>User {
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">new</span><span>(</span><span style="color:#e45649;">id</span><span>: </span><span style="color:#a626a4;">i32</span><span>, </span><span style="color:#e45649;">username</span><span>: String, </span><span style="color:#e45649;">password</span><span>: String) -&gt; </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>        </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>            id,
+</span><span>            username,
+</span><span>            password,
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a0a1a7;">// authentication.rs
+</span><span style="color:#a626a4;">use crate</span><span>::entities::user::User;
+</span><span style="color:#a626a4;">use crate</span><span>::repositories::user_repository::UserRepository;
+</span><span>
+</span><span style="color:#a626a4;">pub struct </span><span>AuthenticationModule {
+</span><span>    </span><span style="color:#e45649;">user_repository</span><span>: UserRepository,
+</span><span>}
+</span><span>
+</span><span style="color:#a626a4;">impl </span><span>AuthenticationModule {
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">new</span><span>(</span><span style="color:#e45649;">user_repository</span><span>: UserRepository) -&gt; </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>        </span><span style="color:#a626a4;">Self </span><span>{ user_repository }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">signup</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>, </span><span style="color:#e45649;">user</span><span>: </span><span style="color:#a626a4;">&amp;</span><span>User) {
+</span><span>        </span><span style="color:#a0a1a7;">// Perform signup logic
+</span><span>        </span><span style="color:#e45649;">self</span><span>.user_repository.</span><span style="color:#0184bc;">save</span><span>(user);
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">login</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>, </span><span style="color:#e45649;">username</span><span>: </span><span style="color:#a626a4;">&amp;str</span><span>, </span><span style="color:#e45649;">password</span><span>: </span><span style="color:#a626a4;">&amp;str</span><span>) {
+</span><span>        </span><span style="color:#a0a1a7;">// Perform login logic
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a0a1a7;">// user_repository.rs
+</span><span style="color:#a626a4;">use crate</span><span>::entities::user::User;
+</span><span>
+</span><span style="color:#a626a4;">pub struct </span><span>UserRepository {
+</span><span>
+</span><span>}
+</span><span>
+</span><span style="color:#a626a4;">impl </span><span>UserRepository {
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">new</span><span>(</span><span style="color:#e45649;">database_url</span><span>: </span><span style="color:#a626a4;">&amp;str</span><span>) -&gt; </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>        </span><span style="color:#a0a1a7;">// Create and initialize the necessary database connection or ORM instance
+</span><span>        </span><span style="color:#a0a1a7;">// For example, establish a Diesel connection to the database
+</span><span>        </span><span style="color:#a626a4;">Self </span><span>{
+</span><span>            </span><span style="color:#a0a1a7;">// Initialize the fields here
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">save</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>, </span><span style="color:#e45649;">user</span><span>: </span><span style="color:#a626a4;">&amp;</span><span>User) {
+</span><span>        </span><span style="color:#a0a1a7;">// Implement the logic to save the user to the database
+</span><span>        </span><span style="color:#a0a1a7;">// You can use Diesel or any other ORM/library here
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#a626a4;">pub fn </span><span style="color:#0184bc;">delete</span><span>(</span><span style="color:#a626a4;">&amp;</span><span style="color:#e45649;">self</span><span>, </span><span style="color:#e45649;">user</span><span>: </span><span style="color:#a626a4;">&amp;</span><span>User) {
+</span><span>        </span><span style="color:#a0a1a7;">// Implement the logic to delete the user from the database
+</span><span>        </span><span style="color:#a0a1a7;">// You can use Diesel or any other ORM/library here
+</span><span>    }
+</span><span>}
+</span></code></pre>
+</li>
+<li>
+<p>Update the <code>main.rs</code> file with the following:</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#[</span><span style="color:#e45649;">macro_use</span><span>]
+</span><span style="color:#a626a4;">extern crate</span><span> rocket;
+</span><span>
+</span><span style="color:#a626a4;">use </span><span>diesel::prelude::</span><span style="color:#a626a4;">*</span><span>;
+</span><span style="color:#a626a4;">use </span><span>rocket::response::status::Created;
+</span><span style="color:#a626a4;">use </span><span>rocket::response::status::Unauthorized;
+</span><span style="color:#a626a4;">use </span><span>std::env;
+</span><span style="color:#a626a4;">use </span><span>dotenv::dotenv;
+</span><span>
+</span><span style="color:#a626a4;">mod </span><span>entities;
+</span><span style="color:#a626a4;">mod </span><span>repositories;
+</span><span style="color:#a626a4;">mod </span><span>modules;
+</span><span>
+</span><span style="color:#a626a4;">use </span><span>entities::user::User;
+</span><span style="color:#a626a4;">use </span><span>modules::authentication::AuthenticationModule;
+</span><span style="color:#a626a4;">use </span><span>repositories::user_repository::UserRepository;
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">establish_connection</span><span>() -&gt; UserRepository {
+</span><span>    Ok(</span><span style="color:#0184bc;">dotenv</span><span>());
+</span><span>    </span><span style="color:#a626a4;">let</span><span> database_url </span><span style="color:#a626a4;">= </span><span>env::var(</span><span style="color:#50a14f;">&quot;DATABASE_URL&quot;</span><span>).</span><span style="color:#0184bc;">expect</span><span>(</span><span style="color:#50a14f;">&quot;DATABASE_URL not set&quot;</span><span>);
+</span><span>    UserRepository::new(</span><span style="color:#a626a4;">&amp;</span><span>database_url)
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#e45649;">post</span><span>(</span><span style="color:#50a14f;">&quot;/signup&quot;</span><span>)]
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">signup_handler</span><span>() -&gt; Created&lt;String&gt; {
+</span><span>    </span><span style="color:#a626a4;">let</span><span> connection </span><span style="color:#a626a4;">= </span><span style="color:#0184bc;">establish_connection</span><span>();
+</span><span>    </span><span style="color:#a626a4;">let</span><span> user </span><span style="color:#a626a4;">= </span><span>User::new(</span><span style="color:#c18401;">1</span><span>, </span><span style="color:#50a14f;">&quot;username&quot;</span><span>.</span><span style="color:#0184bc;">to_owned</span><span>(), </span><span style="color:#50a14f;">&quot;password&quot;</span><span>.</span><span style="color:#0184bc;">to_owned</span><span>());
+</span><span>    </span><span style="color:#a626a4;">let</span><span> authentication_module </span><span style="color:#a626a4;">= </span><span>AuthenticationModule::new(connection);
+</span><span>    authentication_module.</span><span style="color:#0184bc;">signup</span><span>(</span><span style="color:#a626a4;">&amp;</span><span>user);
+</span><span>    Created::new(</span><span style="color:#50a14f;">&quot;Signup successful&quot;</span><span>.</span><span style="color:#0184bc;">to_owned</span><span>())
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#e45649;">post</span><span>(</span><span style="color:#50a14f;">&quot;/login&quot;</span><span>)]
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">login_handler</span><span>() -&gt; Result&lt;</span><span style="color:#a626a4;">&amp;&#39;static str</span><span>, Unauthorized&lt;()&gt;&gt; {
+</span><span>    Ok(</span><span style="color:#50a14f;">&quot;Login succesful&quot;</span><span>)
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#e45649;">launch</span><span>]
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">rocket</span><span>() -&gt; </span><span style="color:#a626a4;">_ </span><span>{
+</span><span>    rocket::build()
+</span><span>        .</span><span style="color:#0184bc;">mount</span><span>(</span><span style="color:#50a14f;">&quot;/signup&quot;</span><span>, routes![signup_handler])
+</span><span>        .</span><span style="color:#0184bc;">mount</span><span>(</span><span style="color:#50a14f;">&quot;/login&quot;</span><span>, routes![login_handler])
+</span><span>}
+</span></code></pre>
+</li>
+</ol>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>Great! Now that we have discussed the necessary steps for creating new modules in our mini hexagonal application, let's put everything together.</p>
+<p>To recap, here are the key points:</p>
+<ol>
+<li>
+<p>The new modules should be placed inside the <code>src/</code> directory.</p>
+</li>
+<li>
+<p>Each module should have a <code>mod.rs</code> file that exports the main module file. However, there are two alternative approaches you can take:</p>
+<ol>
+<li>
+<p><strong>Option 1: Directly create the module file under <code>src/</code>:</strong> Instead of creating a separate <code>mod.rs</code> file, you can create the <code>user.rs</code> file (or any other module file) directly under the <code>src/</code> directory. In this case, you would include the module using the <code>mod</code> keyword in your main application file (<code>main.rs</code>).</p>
+<p>For example, let's assume we have a <code>user</code> module. To include it in your application, you would add the following line in your <code>main.rs</code> file:</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a626a4;">mod </span><span>user;
+</span></code></pre>
+<p>This approach eliminates the need for a separate <code>mod.rs</code> file, as the module file is directly placed in the <code>src/</code> directory.</p>
+</li>
+<li>
+<p><strong>Option 2: Create a <code>mod.rs</code> file in the new module:</strong> Alternatively, you can create a <code>mod.rs</code> file within the new module directory and include the intended contents of the <code>user.rs</code> file in it.</p>
+<p>Here's an example file structure for better understanding:</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#383a42;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#e45649;">src/
+</span><span>  </span><span style="color:#a626a4;">|</span><span style="color:#e45649;">-</span><span> main.rs
+</span><span>  </span><span style="color:#a626a4;">|</span><span style="color:#e45649;">-</span><span> user/
+</span><span>      </span><span style="color:#a626a4;">|</span><span style="color:#e45649;">-</span><span> mod.rs
+</span><span>      </span><span style="color:#a626a4;">|</span><span style="color:#e45649;">-</span><span> user.rs
+</span></code></pre>
+<p>In the <code>mod.rs</code> file inside the <code>user</code> module directory, you would include the following code:</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a626a4;">pub mod </span><span>user;
+</span></code></pre>
+<p>This code exports the <code>user</code> module, making it accessible from other parts of the application.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Once you have created the modules and included them in your application, you can start using them by calling their functions, structs, or traits.</p>
+<p>For example, let's assume you have defined a function named <code>create_user</code> in the <code>user</code> module. You can use it in your <code>main.rs</code> file like this:</p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a626a4;">mod </span><span>user;
+</span><span>
+</span><span style="color:#a626a4;">use </span><span>user::user::create_user;
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>    </span><span style="color:#a0a1a7;">// Call the create_user function from the user module
+</span><span>    </span><span style="color:#0184bc;">create_user</span><span>(</span><span style="color:#50a14f;">&quot;John Doe&quot;</span><span>, </span><span style="color:#50a14f;">&quot;john.doe@example.com&quot;</span><span>);
+</span><span>}
+</span></code></pre>
+<p>Make sure to import the necessary items from the modules using the <code>use</code> keyword.</p>
+</li>
+</ol>
+<h2 id="using-cargo-modules-to-visualize">Using <code>cargo-modules</code> to visualize</h2>
+<p>The <code>cargo-modules</code> crate is a plugin for visualizing the cargo modules you used in a crate. You can find the plugin for download <a href="https://crates.io/crates/cargo-modules">here</a>. For quick demo, install it using this command:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cargo install cargo-modules
+</span></code></pre>
+<p>Or, you can simply add it in your <code>Cargo.toml</code> file:</p>
+<pre data-lang="toml" style="background-color:#fafafa;color:#383a42;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[dependencies]
+</span><span style="color:#e45649;">cargo-modules </span><span>= </span><span style="color:#50a14f;">&quot;0.9.1&quot;
+</span></code></pre>
+<p>To use it, run:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cargo modules generate tree
+</span></code></pre>
+<p>The output for the demo authentication service is:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cargo modules generate tree
+</span><span>
+</span><span>crate authservice_rs
+</span><span>├── mod entities: pub(crate)
+</span><span>│   └── mod user: pub
+</span><span>├── mod modules: pub(crate)
+</span><span>│   └── mod authentication: pub
+</span><span>└── mod repositories: pub(crate)
+</span><span>    └── mod user_repository: pub
+</span></code></pre>
+<p>We can also make it more informational by adding the <code>--types</code> flag:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cargo module generate tree --types
+</span><span>
+</span><span>crate authservice_rs
+</span><span>├── mod entities: pub(crate)
+</span><span>│   └── mod user: pub
+</span><span>│       └── struct User: pub
+</span><span>├── mod modules: pub(crate)
+</span><span>│   └── mod authentication: pub
+</span><span>│       └── struct AuthenticationModule: pub
+</span><span>└── mod repositories: pub(crate)
+</span><span>    └── mod user_repository: pub
+</span><span>        └── struct UserRepository: pub
+</span></code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>By organizing your code into separate modules, you can maintain a more structured and modular codebase. Each module can focus on a specific functionality or domain, improving code readability, reusability, and maintainability.</p>
+<p>That's it! You now have a mini hexagonal application with multiple modules organized within the <code>src/</code> directory. Feel free to expand your application by creating additional modules as needed.</p>
+<p>Happy coding!</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=//theghostmac.github.io/tags/showcase/>showcase</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/posts/>posts</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/rust/>Rust</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/architecture/>architecture</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;theghostmac&#x2F; title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ghostmac9 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=mailto:macbobbychibuzor@gmail.com title=mail>
+            <i data-feather=mail></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2023 © ghostmac 👻 |
+      <a href="https://storage.rxresu.me/clp9ftfft02ei9hun13uvudvi/resumes/clp9kx0hk0m0h5499u2jklr1m.pdf">My CV</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

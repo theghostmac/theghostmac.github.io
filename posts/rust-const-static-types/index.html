@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             The Constant and Static Types in Rust
+            
+        </title>
+
+        
+            <meta property="og:title" content="The Constant and Static Types in Rust" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Understand the const and static type declarations in Rust and when to use each." />
+        
+    
+
+    
+        
+            <meta name="description" content="Understand the const and static type declarations in Rust and when to use each." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+
+    
+    
+        <script src=//theghostmac.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=//theghostmac.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=//theghostmac.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=//theghostmac.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=&#x2F;&#x2F;theghostmac.github.io&#x2F;>MacBobby Chibuzor</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=//theghostmac.github.io/js/themetoggle.js></script>
+        
+
+    <! -- GoadCounter analytics script -->
+        <script data-goatcounter="https://ghostmac.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">The Constant and Static Types in Rust</h1>
+            <div class="meta">
+                
+                on  2023-12-15
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <hr />
+<h1 id="introduction">Introduction</h1>
+<p>In Rust, <code>static</code> and <code>const</code> are two ways to define constant values, but they have different purposes and characteristics.</p>
+<h2 id="const-in-rust"><code>const</code> in Rust</h2>
+<ul>
+<li><strong>Scope</strong>: <code>const</code> defines a constant value that is inlined wherever it's used. This means that each usage of a <code>const</code> is replaced with its value at compile time.</li>
+<li><strong>Mutability</strong>: Constants are always immutable.</li>
+<li><strong>Lifetime</strong>: <code>const</code> has no fixed memory location or address in memory. Its value is copied wherever it's used.</li>
+<li><strong>Initialization</strong>: Must be initialized with a value that can be computed at compile time.</li>
+<li><strong>Use Cases</strong>: Ideal for defining constant values that are used multiple times in your code, but you don't need them to have a fixed address in memory.</li>
+</ul>
+<h3 id="example-of-const">Example of <code>const</code>:</h3>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a626a4;">const </span><span style="color:#c18401;">PI</span><span>: </span><span style="color:#a626a4;">f64 = </span><span style="color:#c18401;">3.1415</span><span>;
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>    </span><span style="color:#a626a4;">let</span><span> radius </span><span style="color:#a626a4;">= </span><span style="color:#c18401;">10.0</span><span>;
+</span><span>    </span><span style="color:#a626a4;">let</span><span> circumference </span><span style="color:#a626a4;">= </span><span style="color:#c18401;">2.0 </span><span style="color:#a626a4;">* </span><span style="color:#c18401;">PI </span><span style="color:#a626a4;">*</span><span> radius;
+</span><span>    println!(</span><span style="color:#50a14f;">&quot;Circumference: </span><span style="color:#c18401;">{}</span><span style="color:#50a14f;">&quot;</span><span>, circumference);
+</span><span>}
+</span></code></pre>
+<h2 id="static-in-rust"><code>static</code> in Rust</h2>
+<ul>
+<li><strong>Scope</strong>: <code>static</code> variables represent a single memory location in your program. All references to the <code>static</code> variable refer to the same memory location.</li>
+<li><strong>Mutability</strong>: By default, <code>static</code> variables are immutable, but you can make them mutable with the <code>mut</code> keyword. Mutable static variables are unsafe because Rust can't guarantee thread safety for them.</li>
+<li><strong>Lifetime</strong>: <code>static</code> variables have a 'static lifetime, meaning they are available throughout the entire run of a program.</li>
+<li><strong>Initialization</strong>: Can be initialized with a constant expression or a value computed at runtime (in the case of <code>lazy_static</code>).</li>
+<li><strong>Use Cases</strong>: Ideal for global or shared state that needs to be accessed across different parts of a program, especially when a fixed memory location is required.</li>
+</ul>
+<h3 id="example-of-static">Example of <code>static</code>:</h3>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a626a4;">static </span><span style="color:#c18401;">GREETING</span><span>: </span><span style="color:#a626a4;">&amp;str = </span><span style="color:#50a14f;">&quot;Hello, world!&quot;</span><span>;
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>    println!(</span><span style="color:#50a14f;">&quot;</span><span style="color:#c18401;">{}</span><span style="color:#50a14f;">&quot;</span><span>, </span><span style="color:#c18401;">GREETING</span><span>);
+</span><span>}
+</span></code></pre>
+<h3 id="mutable-static-unsafe-example">Mutable <code>static</code> (Unsafe Example):</h3>
+<pre data-lang="rust" style="background-color:#fafafa;color:#383a42;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#a626a4;">static mut </span><span style="color:#c18401;">COUNTER</span><span>: </span><span style="color:#a626a4;">i32 = </span><span style="color:#c18401;">0</span><span>;
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">increment</span><span>() {
+</span><span>    </span><span style="color:#a626a4;">unsafe </span><span>{
+</span><span>        </span><span style="color:#c18401;">COUNTER </span><span style="color:#a626a4;">+= </span><span style="color:#c18401;">1</span><span>;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#a626a4;">fn </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>    </span><span style="color:#a626a4;">unsafe </span><span>{
+</span><span>        </span><span style="color:#0184bc;">increment</span><span>();
+</span><span>        println!(</span><span style="color:#50a14f;">&quot;COUNTER: </span><span style="color:#c18401;">{}</span><span style="color:#50a14f;">&quot;</span><span>, </span><span style="color:#c18401;">COUNTER</span><span>);
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h2 id="when-to-use-each">When to Use Each</h2>
+<ul>
+<li><strong>Use <code>const</code> when</strong>: You need constants that are inlined, don't need a fixed location in memory, and are immutable. This is the common choice for defining constant values.</li>
+<li><strong>Use <code>static</code> when</strong>: You need a global variable or some form of state that persists for the entire run of the program. This is less common and should be used carefully, especially when dealing with mutable statics.</li>
+</ul>
+<p>Remember, mutable static variables should be used with caution and generally avoided in favor of other state management techniques, as they introduce the risk of data races and other concurrency issues.</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=//theghostmac.github.io/tags/posts/>posts</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/rust/>Rust</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/discoveries/>discoveries</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;theghostmac&#x2F; title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ghostmac9 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=mailto:macbobbychibuzor@gmail.com title=mail>
+            <i data-feather=mail></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2023 © ghostmac 👻 |
+      <a href="https://storage.rxresu.me/clp9ftfft02ei9hun13uvudvi/resumes/clp9kx0hk0m0h5499u2jklr1m.pdf">My CV</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

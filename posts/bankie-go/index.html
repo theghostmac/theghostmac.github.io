@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Bankie.go
+            
+        </title>
+
+        
+            <meta property="og:title" content="Bankie.go" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Bankie.go is a self-sustaining simulation of the banking experience." />
+        
+    
+
+    
+        
+            <meta name="description" content="Bankie.go is a self-sustaining simulation of the banking experience." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+
+    
+    
+        <script src=//theghostmac.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=//theghostmac.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=//theghostmac.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=//theghostmac.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=&#x2F;&#x2F;theghostmac.github.io&#x2F;>MacBobby Chibuzor</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=//theghostmac.github.io/js/themetoggle.js></script>
+        
+
+    <! -- GoadCounter analytics script -->
+        <script data-goatcounter="https://ghostmac.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Bankie.go</h1>
+            <div class="meta">
+                
+                on  2023-07-09
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="description">Description</h1>
+<p><a href="https://github.com/theghostmac/bankie.go">Bankie.go</a> is a simple banking application built with Go programming language. 
+It provides basic banking functionalities such as creating accounts, making 
+deposits and withdrawals, and transferring funds between accounts.</p>
+<h2 id="features">Features</h2>
+<p>Account Management: Users can create new bank accounts and manage their existing accounts.
+Deposits and Withdrawals: Users can deposit money into their accounts or make withdrawals.
+Fund Transfers: Users can transfer funds from one account to another.
+Transaction History: The application maintains a transaction history for each account, allowing users to track their transactions.
+Installation
+Bankie.go can be installed using one of the following methods:</p>
+<h2 id="installation-with-makefile">Installation with Makefile</h2>
+<p>To run Bankie.go using the Makefile, make sure you have Go and Make installed on your system. Then, follow these steps:</p>
+<ol>
+<li>Clone the repository:</li>
+</ol>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>git clone https://github.com/theghostmac/bankie.go.git
+</span></code></pre>
+<ol start="2">
+<li>Navigate to the project directory:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cd bankie.go
+</span></code></pre>
+</li>
+<li>Start the PostgreSQL repository by running the Docker installation below, in another terminal. To start Bankie any time, run:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span> docker start bankie
+</span></code></pre>
+</li>
+<li>Build and run the application using the <code>Makefile</code>:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>make run
+</span></code></pre>
+</li>
+</ol>
+<h2 id="installation-with-docker">Installation with Docker</h2>
+<p>To run Bankie.go using Docker, make sure you have Docker installed on your system. Then, follow these steps:</p>
+<ol>
+<li>Clone the repository:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>git clone https://github.com/theghostmac/bankie.go.git
+</span></code></pre>
+</li>
+<li>Navigate to the project directory:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cd bankie.go
+</span></code></pre>
+</li>
+<li>Build the Docker image:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>docker build -t bankie .
+</span></code></pre>
+</li>
+<li>Run the Docker container:<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>docker run -p 8080:8080 bankie
+</span></code></pre>
+</li>
+</ol>
+<h3 id="installation-by-cloning-the-repository">Installation by Cloning the Repository</h3>
+<p>To run Bankie.go by cloning the repository, make sure you have Go installed on your system. Then, follow these steps:</p>
+<ol>
+<li>
+<p>Clone the repository:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>git clone https://github.com/theghostmac/bankie.go.git
+</span></code></pre>
+</li>
+<li>
+<p>Navigate to the project directory:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>cd bankie.go
+</span></code></pre>
+</li>
+<li>
+<p>Build the application:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>go build
+</span></code></pre>
+</li>
+<li>
+<p>Run the application:</p>
+<pre data-lang="shell" style="background-color:#fafafa;color:#383a42;" class="language-shell "><code class="language-shell" data-lang="shell"><span>./bankie.go
+</span></code></pre>
+</li>
+</ol>
+<h3 id="usage">Usage</h3>
+<p>Once the application is running, you can interact with it using a RESTFul API. The following endpoints are available:</p>
+<ol>
+<li><code>POST /accounts</code>: Create a new bank account. Provide the account holder's name and an initial deposit amount.</li>
+<li><code>GET /accounts/:id</code>: Retrieve information about a specific account.</li>
+<li><code>POST /accounts/:id/deposit</code>: Make a deposit to a specific account. Provide the deposit amount.</li>
+<li><code>POST /accounts/:id/withdraw</code>: Make a withdrawal from a specific account. Provide the withdrawal amount.</li>
+<li><code>POST /accounts/:id/transfer</code>: Transfer funds from one account to another. Provide the recipient account ID and the transfer amount.</li>
+<li><code>GET /accounts/:id/transactions</code>: Retrieve the transaction history of a specific account.
+Make sure to replace <code>:id</code> with the actual account ID in the endpoint URLs.</li>
+</ol>
+<h3 id="contributing">Contributing</h3>
+<p>Contributions to Bankie.go are welcome! If you find any issues or would like to add new features, please feel free to open an issue or submit a pull request.</p>
+<h3 id="license">License</h3>
+<p>This project is licensed under the MIT License.</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=//theghostmac.github.io/tags/showcase/>showcase</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/projects/>projects</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/go/>Go</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;theghostmac&#x2F; title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ghostmac9 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=mailto:macbobbychibuzor@gmail.com title=mail>
+            <i data-feather=mail></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2023 © ghostmac 👻 |
+      <a href="https://storage.rxresu.me/clp9ftfft02ei9hun13uvudvi/resumes/clp9kx0hk0m0h5499u2jklr1m.pdf">My CV</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

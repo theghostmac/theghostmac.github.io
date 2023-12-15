@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Mastering the os Package in Golang
+            
+        </title>
+
+        
+            <meta property="og:title" content="Mastering the os Package in Golang" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Blog post about the os Package usage in Golang." />
+        
+    
+
+    
+        
+            <meta name="description" content="Blog post about the os Package usage in Golang." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+
+    
+    
+        <script src=//theghostmac.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=//theghostmac.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=//theghostmac.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=//theghostmac.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=&#x2F;&#x2F;theghostmac.github.io&#x2F;>MacBobby Chibuzor</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=//theghostmac.github.io/js/themetoggle.js></script>
+        
+
+    <! -- GoadCounter analytics script -->
+        <script data-goatcounter="https://ghostmac.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Mastering the os Package in Golang</h1>
+            <div class="meta">
+                
+                on  2023-04-14
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <hr />
+<h1 id="introduction">Introduction</h1>
+<p>The <code>os</code> package in Golang is a powerful package that provides a platform-independent interface to operating system functionality. It provides a simple and consistent way to work with files, directories, and environment variables. By mastering this package, you can write more efficient and effective Golang programs. In this article, we will explore some of the key features of the <code>os</code> package and how to use them effectively.</p>
+<h2 id="working-with-files">Working with Files</h2>
+<p>The <code>os</code> package provides several functions for working with files. These functions include <code>Create</code>, <code>Open</code>, <code>OpenFile</code>, <code>Remove</code>, <code>Rename</code>, <code>Stat</code>, and <code>Chmod</code>.</p>
+<p>The <code>Create</code> function is used to create a new file with the specified name and permissions. The <code>Open</code> function is used to open an existing file for reading. The <code>OpenFile</code> function is used to open a file for reading, writing, or both. The <code>Remove</code> function is used to delete a file. The <code>Rename</code> function is used to rename a file. The <code>Stat</code> function is used to get information about a file, such as its size and modification time. The <code>Chmod</code> function is used to change the permissions of a file.</p>
+<p>Here is an example of how to create a file using the <code>Create</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">file</span><span>, </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Create</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span style="color:#a626a4;">defer </span><span style="color:#e45649;">file</span><span>.</span><span style="color:#e45649;">Close</span><span>()
+</span><span>
+</span></code></pre>
+<p>In this example, we create a new file called <code>example.txt</code>. If there is an error creating the file, we log the error and exit the program. We also use the <code>defer</code> keyword to ensure that the <code>Close</code> function is called on the file when we are done using it.</p>
+<p>The <code>Open</code> function is used to open an existing file for reading. Here is an example of how to use the <code>Open</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">file</span><span>, </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Open</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span style="color:#a626a4;">defer </span><span style="color:#e45649;">file</span><span>.</span><span style="color:#e45649;">Close</span><span>()
+</span><span>
+</span></code></pre>
+<p>In this example, we open an existing file called <code>example.txt</code>. If there is an error opening the file, we log the error and exit the program. We also use the <code>defer</code> keyword to ensure that the <code>Close</code> function is called on the file when we are done using it.</p>
+<p>The <code>OpenFile</code> function is used to open a file for reading, writing, or both. Here is an example of how to use the <code>OpenFile</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">file</span><span>, </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">OpenFile</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>, </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">O_RDWR</span><span style="color:#a626a4;">|</span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">O_CREATE</span><span>, </span><span style="color:#c18401;">0755</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span style="color:#a626a4;">defer </span><span style="color:#e45649;">file</span><span>.</span><span style="color:#e45649;">Close</span><span>()
+</span><span>
+</span></code></pre>
+<p>In this example, we open a file called <code>example.txt</code> for both reading and writing with permissions set to <code>0755</code>. If the file does not exist, it will be created. If there is an error opening the file, we log the error and exit the program. We also use the <code>defer</code> keyword to ensure that the <code>Close</code> function is called on the file when we are done using it.</p>
+<p>The <code>Remove</code> function is used to delete a file. Here is an example of how to use the <code>Remove</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Remove</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we delete a file called <code>example.txt</code>. If there is an error deleting the file, we log the error and exit the program.</p>
+<p>The <code>Rename</code> function is used to rename a file. Here is an example of how to use the <code>Rename</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Rename</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>, </span><span style="color:#50a14f;">&quot;new_example.txt&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we rename a file called <code>example.txt</code> to <code>new_example.txt</code>. If there is an error renaming the file, we log the error and exit the program.</p>
+<p>The <code>Stat</code> function is used to get information about a file, such as its size and modification time. Here is an example of how to use the <code>Stat</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">fileInfo</span><span>, </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Stat</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span style="color:#e45649;">fmt</span><span>.</span><span style="color:#e45649;">Println</span><span>(</span><span style="color:#50a14f;">&quot;File size:&quot;</span><span>, </span><span style="color:#e45649;">fileInfo</span><span>.</span><span style="color:#e45649;">Size</span><span>())
+</span><span style="color:#e45649;">fmt</span><span>.</span><span style="color:#e45649;">Println</span><span>(</span><span style="color:#50a14f;">&quot;Last modified time:&quot;</span><span>, </span><span style="color:#e45649;">fileInfo</span><span>.</span><span style="color:#e45649;">ModTime</span><span>())
+</span><span>
+</span></code></pre>
+<p>In this example, we get information about a file called <code>example.txt</code>. If there is an error getting the file information, we log the error and exit the program. We then print the size of the file and the last time it was modified to the console.</p>
+<p>The <code>Chmod</code> function is used to change the permissions of a file. Here is an example of how to use the <code>Chmod</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Chmod</span><span>(</span><span style="color:#50a14f;">&quot;example.txt&quot;</span><span>, </span><span style="color:#c18401;">0600</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we change the permissions of a file called <code>example.txt</code> to <code>0600</code>. If there is an error changing the permissions, we log the error and exit the program.</p>
+<h2 id="working-with-directories">Working with Directories</h2>
+<p>The <code>os</code> package also provides several functions for working with directories. These functions include <code>Mkdir</code>, <code>MkdirAll</code>, <code>Remove</code>, and <code>RemoveAll</code>.</p>
+<p>The <code>Mkdir</code> function is used to create a new directory with the specified name and permissions. Here is an example of how to use the <code>Mkdir</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Mkdir</span><span>(</span><span style="color:#50a14f;">&quot;example&quot;</span><span>, </span><span style="color:#c18401;">0755</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we create a new directory called <code>example</code> with permissions set to <code>0755</code>. If there is an error creating the directory, we log the error and exit the program.</p>
+<p>The <code>MkdirAll</code> function is used to create a directory and any necessary parent directories. Here is an example of how to use the <code>MkdirAll</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">MkdirAll</span><span>(</span><span style="color:#50a14f;">&quot;example/child/grandchild&quot;</span><span>, </span><span style="color:#c18401;">0755</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we create a directory called <code>grandchild</code> inside a directory called <code>child</code> inside a directory called <code>example</code>. If any of the parent directories do not exist, they will be created. If there is an error creating the directories, we log the error and exit the program.</p>
+<p>The <code>Remove</code> function is used to delete a directory. Here is an example of how to use the <code>Remove</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Remove</span><span>(</span><span style="color:#50a14f;">&quot;example&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we delete a directory called <code>example</code>. If there is an error deleting the directory, we log the error and exit the program.</p>
+<p>The <code>RemoveAll</code> function is used to delete a directory and all of its contents. Here is an example of how to use the <code>RemoveAll</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">RemoveAll</span><span>(</span><span style="color:#50a14f;">&quot;example&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we delete a directory called <code>example</code> and all of its contents. If there is an error deleting the directory, we log the error and exit the program.</p>
+<h2 id="working-with-environment-variables">Working with Environment Variables</h2>
+<p>The <code>os</code> package also provides functions for working with environment variables. These functions include <code>Getenv</code>, <code>Setenv</code>, and <code>Unsetenv</code>.</p>
+<p>The <code>Getenv</code> function is used to get the value of the specified environment variable. Here is an example of how to use the <code>Getenv</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">value </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Getenv</span><span>(</span><span style="color:#50a14f;">&quot;HOME&quot;</span><span>)
+</span><span style="color:#e45649;">fmt</span><span>.</span><span style="color:#e45649;">Println</span><span>(</span><span style="color:#50a14f;">&quot;Home directory:&quot;</span><span>, </span><span style="color:#e45649;">value</span><span>)
+</span><span>
+</span></code></pre>
+<p>In this example, we get the value of the <code>HOME</code> environment variable and print it to the console.</p>
+<h2 id="replacement">Replacement:</h2>
+<p>According to rwxrob, to get the home directory, use:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#a626a4;">package </span><span style="color:#e45649;">main
+</span><span>
+</span><span style="color:#a626a4;">import </span><span>(
+</span><span>	</span><span style="color:#50a14f;">&quot;os/user&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;log&quot;
+</span><span>	</span><span style="color:#50a14f;">&quot;fmt&quot;
+</span><span>)
+</span><span>
+</span><span style="color:#a626a4;">func </span><span style="color:#0184bc;">main</span><span>() {
+</span><span>	</span><span style="color:#e45649;">user</span><span>, </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">user</span><span>.</span><span style="color:#e45649;">Current</span><span>()
+</span><span>	</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>		</span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatalf</span><span>(</span><span style="color:#e45649;">err</span><span>.</span><span style="color:#e45649;">Error</span><span>())
+</span><span>	}
+</span><span>	</span><span style="color:#e45649;">homeDirectory </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">user</span><span>.</span><span style="color:#e45649;">HomeDir
+</span><span>	</span><span style="color:#e45649;">fmt</span><span>.</span><span style="color:#e45649;">Printf</span><span>(</span><span style="color:#50a14f;">&quot;Home Directory: </span><span style="color:#c18401;">%s</span><span style="color:#0997b3;">\n</span><span style="color:#50a14f;">&quot;</span><span>, </span><span style="color:#e45649;">homeDirectory</span><span>)
+</span><span>}
+</span></code></pre>
+<p>The <code>Setenv</code> function is used to set the value of the specified environment variable. Here is an example of how to use the <code>Setenv</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Setenv</span><span>(</span><span style="color:#50a14f;">&quot;MY_VAR&quot;</span><span>, </span><span style="color:#50a14f;">&quot;my_value&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we set the value of the <code>MY_VAR</code> environment variable to <code>my_value</code>. If there is an error setting the environment variable, we log the error and exit the program.</p>
+<p>The <code>Unsetenv</code> function is used to unset the specified environment variable. Here is an example of how to use the <code>Unsetenv</code> function:</p>
+<pre data-lang="go" style="background-color:#fafafa;color:#383a42;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#e45649;">err </span><span style="color:#a626a4;">:= </span><span style="color:#e45649;">os</span><span>.</span><span style="color:#e45649;">Unsetenv</span><span>(</span><span style="color:#50a14f;">&quot;MY_VAR&quot;</span><span>)
+</span><span style="color:#a626a4;">if </span><span style="color:#e45649;">err </span><span style="color:#a626a4;">!= </span><span style="color:#c18401;">nil </span><span>{
+</span><span>    </span><span style="color:#e45649;">log</span><span>.</span><span style="color:#e45649;">Fatal</span><span>(</span><span style="color:#e45649;">err</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>In this example, we unset the <code>MY_VAR</code> environment variable. If there is an error unsetting the environment variable, we log the error and exit the program.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The <code>os</code> package in Golang provides a powerful and flexible interface to operating system functionality. By mastering this package, you can write more efficient and effective Golang programs. We have covered some of the key features of the <code>os</code> package in this article, but there is much more to explore. Whether you are working with files, directories, or environment variables, the <code>os</code> package has functions that can help you get the job done.</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=//theghostmac.github.io/tags/showcase/>showcase</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/posts/>posts</a></li>
+                        
+                            <li><a href=//theghostmac.github.io/tags/go/>Go</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;theghostmac&#x2F; title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ghostmac9 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=mailto:macbobbychibuzor@gmail.com title=mail>
+            <i data-feather=mail></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2023 © ghostmac 👻 |
+      <a href="https://storage.rxresu.me/clp9ftfft02ei9hun13uvudvi/resumes/clp9kx0hk0m0h5499u2jklr1m.pdf">My CV</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
