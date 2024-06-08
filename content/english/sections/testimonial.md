@@ -15,7 +15,7 @@ testimonials:
     avatar: "/images/avatar-sm.png"
     content: "MacBobby is a highly skilled software engineer who consistently delivers high-quality work. His ability to manage complex projects and integrate cloud-native technologies has been instrumental in our success."
 
-  - name: "0xTife Balogun"
+  - name: "Steven Isaac"
     designation: "Web3 Founder"
     avatar: "/images/avatar-sm.png"
     content: "MacBobby's deep understanding of blockchain and smart contracts has significantly advanced our Web3 initiatives. His technical acumen and dedication to excellence make him a valuable asset to any team."
