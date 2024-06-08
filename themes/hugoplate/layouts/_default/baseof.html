@@ -14,6 +14,11 @@
     <!-- style (always cache it) -->
     {{ partialCached "essentials/style.html" . }}
 
+    <!-- style (support latex/katex for math equations.) -->
+    {{ if .Param "math" }}
+        {{ partialCached "essentials/math.html" . }}
+    {{ end }}
+
   </head>
 
   <body>

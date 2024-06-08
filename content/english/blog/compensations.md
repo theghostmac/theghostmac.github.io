@@ -1,12 +1,14 @@
-+++
-title = "Asking for Compensations in the Gig Economy"
-date = "2024-05-05"
-author = "MacBobby Chibuzor"
-description = "Learn how to calculate the right compensations to ask from your clients as a freelancer."
-
-[taxonomies]
-tags = ["how-to", "blog"]
-+++
+---
+title: "Asking for Compensations in the Gig Economy"
+meta_title: ""
+description: "Learn how to calculate the right compensations to ask from your clients as a freelancer."
+date: 2024-05-05
+image: ""
+categories: ["How-To"] 
+author: "MacBobby Chibuzor"
+tags: ["How-To"]
+draft: false
+---
 
 ## Backstory
 
@@ -27,9 +29,17 @@ Think ride-sharing apps, delivery services, and online marketplaces for freelanc
 
 Here's a breakdown of the gig economy:
 
-- **What it is:** A labor market reliant on temporary work done by independent contractors and freelancers.
-- **When it started:** No exact date, but the rise of digital platforms in recent years has been a big factor.
-- **Where it's at now:** The gig economy is a growing trend, with many people choosing or needing to work freelance or in temporary positions. The gig economy has enabled young skilled workers earn amazing compensation from the comfort of their homes.
+{{< accordion "What it is?" >}}
+A labor market reliant on temporary work done by independent contractors and freelancers.
+{{< /accordion >}}
+
+{{< accordion "When it started?" >}}
+No exact date, but the rise of digital platforms in recent years has been a big factor.
+{{< /accordion >}}
+
+{{< accordion "Where it's at now" >}}
+The gig economy is a growing trend, with many people choosing or needing to work freelance or in temporary positions. The gig economy has enabled young skilled workers earn amazing compensation from the comfort of their homes.
+{{< /accordion >}}
 
 {{< image src="images/2021millionaireboy.png" caption="" alt="alter-text" height="" width="" position="center" command="fill" option="q100" class="img-fluid" title="image title"  webp="false" >}}
 
@@ -39,12 +49,13 @@ There are both advantages and disadvantages to the gig economy.  It can offer fl
 
 Generally, everyone is advised to calculate and know how much their hourly worth is. It may weigh in on your conscience, such that when you’re watching a 2-hour movie, you know exactly how much you are not making. But this is more good than bad.
 
-> “Set and enforce an aspirational personal hourly rate. If fixing a problem will save less than your hourly rate, ignore it. If outsourcing a task will cost less than your hourly rate, outsource it.”
+{{< notice "tip" >}}
+“Set and enforce an aspirational personal hourly rate. If fixing a problem will save less than your hourly rate, ignore it. If outsourcing a task will cost less than your hourly rate, outsource it.”
 Excerpt From
 The Almanack of Naval Ravikant: A Guide to Wealth and Happiness
 Eric Jorgenson
 This material may be protected by copyright.
->
+{{< /notice >}}
 
 Let’s practically learn how to do this.
 
@@ -61,11 +72,9 @@ Calculating your hourly worth can be done in multiple ways. The easiest way is t
 
 By way of example, let’s assume Alice needs/survives on $2000 each month. That means she needs to make roughly $500 per week. Say she works 40 hours a week, then Alice’s hourly worth is  $12.5 per hour.
 
-```
 $$
 \text{Iph} = \frac{\text{TIN}}{\text{THW} \cdot \text{NW}}
 $$
-```
 
 **Income per hour (Iph) = Total income needed (TIN) / (Total hours worked per week (THW) x Number of weeks (NW))**
 
