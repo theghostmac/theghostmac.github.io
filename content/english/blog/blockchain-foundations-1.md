@@ -34,7 +34,7 @@ The blocks have properties like the:
 - data (often about transactions)
 - timestamp
 
-![Blockchain Elements](/images/blockchain-elements.png)
+{{< image src="images/blockchain-elements.png" caption="" alt="alter-text" height="" width="" position="center" command="fill" option="q100" class="img-fluid" title="image title"  webp="false" >}}
 
 The first block has a set of unique properties given that it is actually the first block in the blockchain. Some of these properties include:
 

@@ -290,7 +290,7 @@ Here's how you can set up and run your Go application using Docker Compose. We w
 
    Docker Compose reads the configuration defined in `docker-compose.yml` and sets up the environment accordingly. You'll see the application and database containers being created and initialized.
 
-![Application is running](/imgs/bankie_running.png)
+{{< image src="images/bankie_running.png" caption="" alt="alter-text" height="" width="" position="center" command="fill" option="q100" class="img-fluid" title="image title"  webp="false" >}}
 
 4. **Interact with Bankie.go**:
 
