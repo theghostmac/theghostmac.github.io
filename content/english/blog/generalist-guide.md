@@ -102,10 +102,15 @@ It would do you good to follow these steps:
 3. Focus on the important ones first — it takes time and intense focus to really pick up something. I would advice focusing on one thing for a few months until you are perfect in the foundations, before venturing into the next thing. Do not confuse the basics, do not mix it it. It is important. Now, filter the important and urgent ones from the ones that can wait a little later.
 4. Create a roadmap for the important interests. From that roadmap, create a realistic time frame for each of them. Its okay if some roadmaps are longer than the other.
 5. Divide the roadmaps into weekly goals and objectives. Let’s give a generic example:
+
    a. Week One: Grasp the basics 
-   b. Week Two: Properly internalize the basics. 
+
+   b. Week Two: Properly internalize the basics.
+
    c. Week Three: Practice from memory without consulting materials or external help
+
    d. Week Four: … 
+
    e. Week Thirteen: Create or update your CV to reflect knowledge of this.
 
 6. Consistently follow the weekly schedule by breaking activities into daily tasks.
