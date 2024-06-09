@@ -2,7 +2,7 @@
 title: "The Generalist’s Guide To Managing Multiple Interests and Skills"
 meta_title: ""
 description: ""
-date: 2024-06-09T19:36:00Z
+date: 2024-06-09T01:36:00Z
 image: ""
 categories: ["Advice"]
 author: "MacBobby Chibuzor"
@@ -22,7 +22,7 @@ That just means I had to use the little juice on my MacBook — thank God for th
 
 Sunday came, and it dawned on me that nobody works on Sundays. But I needed the generator to work. What did I do? I summoned my Bachelors’ degree in Mechatronics Engineering, and began to troubleshoot the problem. After fixing it, I had a deep thought about the whole experience.
 
-Yes, its common knowledge for some of the male folks — some of you can change car tires, fix leaking sinks, etcetera, and also be great lawyers, or doctors, or software engineers. And that’s what this write-up is about.
+Yes, its common knowledge for some of the male folks — some of you can change car tires, fix leaking sinks, et cetera, and also be great lawyers, or doctors, or software engineers. And that’s what this write-up is about.
 
 It’s about why it's great to be a generalist. About why you don’t have to be a master or a specialist, as long as you can use what little knowledge you have in a field to do what you want.
 

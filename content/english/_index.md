@@ -10,7 +10,7 @@ banner:
     link: "https://github.com/theghostmac"
 
 # Features
-features:
+features: 
   - title: "About Me"
     image: "/images/service-1.png"
     content: "I am MacBobby Chibuzor, a dedicated software engineer with a passion for developing innovative solutions in the FinTech and blockchain domains. With extensive experience in building scalable backend systems, smart contracts, and cloud-native applications, I bring a unique blend of technical expertise and creativity to my work."
