@@ -63,7 +63,7 @@ content = "This site is currently under maintenance."
 # seo module: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo
 [metadata]
 keywords = ["MacBobby Chibuzor", "GhostMac", "MacBobby"]
-description = "MacBobby Chibuzor is a software engineer."
+description = "MacBobby Chibuzor is a software engineer who specializes in FinTech and Blockchain development."
 author = "ghostmac"
 image = "images/og-image.png"
 
