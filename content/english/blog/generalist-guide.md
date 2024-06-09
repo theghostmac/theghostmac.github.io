@@ -1,9 +1,9 @@
 ---
 title: "The Generalist’s Guide To Managing Multiple Interests and Skills"
-meta_title: ""
-description: ""
+meta_title: "The Generalist’s Guide: Balancing Multiple Interests and Skills for Success"
+description: "Discover the advantages of being a generalist and how to effectively manage diverse interests and skills. Learn practical tips for time management, career decisions, and avoiding burnout, with insights from personal experiences and expert advice."
 date: 2024-06-09T01:36:00Z
-image: ""
+image: "/images/generalist-guide.png"
 categories: ["Advice"]
 author: "MacBobby Chibuzor"
 tags: ["Advice"]
