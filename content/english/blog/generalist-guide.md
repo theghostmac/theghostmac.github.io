@@ -18,7 +18,7 @@ Here, I want to discuss with you about why I believe a generalist like you is ju
 
 It was a Saturday evening. I had a Monday deadline to meet on a software programming job, but there was no electricity. I tried running my power generator, but it just wouldn’t come on.
 
-That just means I had to use the little juice on my MacBook — thank God for those power hoarders — to do the most I can, then call an engineer to fix the generator by morning. I didn’t give it much thought anymore, and just started working on my computer. Don’t blame me, Jack, I cope by doing the next available thing I can do, as opposed to wallowing in anxiety about shattered plans.
+I concluded that I had to use the little juice on my MacBook — thank God for those power hoarders — to do the most I can, then call an engineer to fix the generator by morning. I didn’t give it much thought anymore, and just started working on my computer. Don’t blame me, Jack, I cope by doing the next available thing I can do, as opposed to wallowing in anxiety about shattered plans.
 
 Sunday came, and it dawned on me that nobody works on Sundays. But I needed the generator to work. What did I do? I summoned my Bachelors’ degree in Mechatronics Engineering, and began to troubleshoot the problem. After fixing it, I had a deep thought about the whole experience.
 
