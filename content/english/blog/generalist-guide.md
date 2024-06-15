@@ -121,7 +121,7 @@ It would do you good to follow these steps:
 Hey, Jack.
 
 Lots of folks will pitch their tents against you because you’re a generalist: friends, colleagues, parents, and even recruiters/employers. I remember being called out in a group for being “everywhere.”
-If this every happens to you, mention the following names:
+If this even happens to you, mention the following names:
 
 - Leonardo Da Vinci.
 - Bertrand Russell.
