@@ -58,7 +58,7 @@ A good technical writer must have a strong grasp of the subject they're writing 
 
 **Tips:**
 
-- Collaborate with subject matter experts (SMEs) to deepen your understanding.
+- Collaborate with subject-matter experts (SMEs) to deepen your understanding.
 - Engage in self-study through books, online courses, and industry articles.
 - Attend workshops, webinars, and conferences relevant to your field.
 
@@ -138,7 +138,7 @@ Again, if you write for a company, your editor or a marketing staff would provid
 
 ## 8. **Stay Updated with Industry Trends**
 
-The field of technical writing is constantly evolving with new tools, techniques, and best practices. One of such is the advent of Generative AI, which has revolutionalize content creation with a storm. Staying updated helps you maintain a competitive edge and ensure your writing remains relevant and effective.
+The field of technical writing is constantly evolving with new tools, techniques, and best practices. One of such is the advent of Generative AI, which has revolutionized content creation with a storm. Staying updated helps you maintain a competitive edge and ensure your writing remains relevant and effective.
 
 **Tips:**
 
