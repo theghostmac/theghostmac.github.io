@@ -1,5 +1,5 @@
 ---
-title: "Getting Better At Technical Writing"
+title: "Becoming a Good Technical Writer"
 meta_title: "Improve Your Technical Writing Skills"
 description: "Learn essential tips and best practices to enhance your technical writing skills and create effective documentation."
 date: 2024-06-17
