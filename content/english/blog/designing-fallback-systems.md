@@ -1,9 +1,9 @@
 ---
 title: "Designing Fallback Systems"
 meta_title: ""
-description = "Learn about the importance of designing fallback mechanisms for your application: with a Golang example"
+description: "Learn about the importance of designing fallback mechanisms for your application: with a Golang example"
 date: 2024-03-14
-image: "/images/fallback-chart-new.png"
+image: "/images/good-technical-writer.png"
 categories: ["Best Practices"]
 author: "MacBobby Chibuzor"
 tags: ["advice", "Go", "software-war-stories"]
