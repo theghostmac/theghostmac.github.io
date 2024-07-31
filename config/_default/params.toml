@@ -55,9 +55,9 @@ show_categories = true
 # announcement
 # announcement module: https://github.com/gethugothemes/hugo-modules/tree/master/components/announcement
 [announcement]
-enable = false
+enable = true
 expire_days = 7
-content = "This site is currently under maintenance."
+content = "Update ℹ️: I added my work log to the home page."
 
 # seo meta data for OpenGraph / Twitter Card
 # seo module: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo

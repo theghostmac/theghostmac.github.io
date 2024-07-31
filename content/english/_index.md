@@ -36,8 +36,8 @@ features:
       - "Authored 15 technical guides on cloud-native concepts, enhancing client teams' productivity at IOD Cloud Technologies"
     button:
       enable: true
-      label: "Explore My Projects"
-      link: "https://github.com/theghostmac"
+      label: "My Work Log"
+      link: "https://ghostmac.notion.site/Work-Log-ff5e8132f75d44b984834c1539cc5f0c?pvs=4"
 
   - title: "Skills and Technologies"
     image: "/images/service-3.png"

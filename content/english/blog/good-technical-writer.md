@@ -81,7 +81,7 @@ Logical organization is critical in technical writing. Your content should flow 
 - Use headings and subheadings to break up text and highlight key points.
 - Follow a logical progression, such as from general to specific or from problem to solution.
 
-This article is a good example of a well structured article.
+This article is a good example of a well-structured article.
 
 ## 4. **Use Clear and Concise Language**
 
