@@ -11,10 +11,11 @@ draft: false
 ---
 
 ## Introduction
+When prototyping a Rust application, you may need to provide a backend service to handle requests from your frontend.
+Sometimes this might be for a dApp or a bot, but whichever, chances are that you might need a database to store data or state.
 
-Solana has emerged as a high-performance, low-cost alternative to Ethereum. 
-As developers, we're often tasked with creating robust backend services that interact with blockchain networks. 
-In this article, we'll explore how to leverage Docker and Rust to build a scalable backend service for a Solana-based application.
+In this article, we'll walk through the process of creating a Rust-based backend service for a Solana wallet tracking
+application, containerized with Docker.
 
 We'll be creating a simple Solana wallet tracking service. This service will allow users to register wallets, track their balances, and record transactions. We'll use Rust for our backend, PostgreSQL for our database, and Docker to containerize everything, ensuring a consistent development and deployment environment.
 
@@ -31,7 +32,7 @@ Before we begin, make sure you have the following installed on your system:
 
 Let's start by setting up our project structure:
 
-```
+```shell
 solana-wallet-tracker/
 ├── src/
 │   ├── main.rs
@@ -165,7 +166,7 @@ Now that we have our Rust application, let's containerize it using Docker. First
 
 ```dockerfile
 # Use the official Rust image as a parent image
-FROM rust:1.55 as builder
+FROM rust:latest as builder
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
@@ -289,8 +290,6 @@ In this article, we've walked through the process of creating a Rust-based backe
 3. Setting up a PostgreSQL database and using Diesel for ORM
 4. Containerizing the application with Docker
 5. Using Docker Compose to manage our multi-container application
-
-This setup provides a solid foundation for building scalable blockchain applications. By using Docker, we ensure that our development environment is consistent and easily reproducible. The use of Rust provides performance and safety, while Actix-web gives us a powerful, asynchronous web framework.
 
 Remember, this is just a starting point. In a production environment, you'd want to add more robust error handling, implement proper logging, add authentication and authorization, and perhaps use a reverse proxy like Nginx in front of your Rust application.
 
