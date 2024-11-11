@@ -1,16 +1,14 @@
 ---
-title: ""
-meta_title: ""
-description: ""
-date: 2024-11-10
-#image: "/images/.png"
-categories: [""]
+title: "Understanding Bonding Curves: From Math to Implementation"
+meta_title: "A Deep Dive into DeFi's Price Discovery Mechanism"
+description: "Explore how bonding curves work in DeFi, from mathematical foundations to practical Solidity implementation, with comprehensive testing using Foundry."
+date: 2024-11-11
+#image: "/images/bonding-curve-math.png"
+categories: ["DeFi", "Smart Contracts", "Mathematics"]
 author: "MacBobby Chibuzor"
-tags: [""]
+tags: ["solidity", "foundry", "smart contracts", "tokenomics"]
 draft: false
 ---
-
-# Understanding Bonding Curves: Mathematical Foundations and Implementation
 
 Bonding curves represent one of the most fascinating intersections of mathematics and tokenomics 
 in the web3 space.
@@ -271,7 +269,7 @@ Initializes our curve parameters with basic validation.
         price = A.mulWad(uint256(exp_b_x.expWad()));
     }
 ```
-Implements our $P = Ae^{Bx}$ formula using fixed-point math.
+Implements our price formula using fixed-point math.
 
 ##### Buy Amount Calculation
 ```solidity
