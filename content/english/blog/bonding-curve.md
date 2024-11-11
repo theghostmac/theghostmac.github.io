@@ -3,7 +3,7 @@ title: "Understanding Bonding Curves: From Math to Implementation"
 meta_title: "A Deep Dive into DeFi's Price Discovery Mechanism"
 description: "Explore how bonding curves work in DeFi, from mathematical foundations to practical Solidity implementation, with comprehensive testing using Foundry."
 date: 2024-11-11
-#image: "/images/bonding-curve-math.png"
+image: "/images/bonding-curve.png"
 categories: ["DeFi", "Smart Contracts", "Mathematics"]
 author: "MacBobby Chibuzor"
 tags: ["solidity", "foundry", "smart contracts", "tokenomics"]
