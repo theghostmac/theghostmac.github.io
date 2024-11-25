@@ -3,7 +3,7 @@ title: "Beyond Mocking: Rethinking Test Design Through Code Structure"
 meta_title: "Better Code Design to Reduce Test Mocking"
 description: "Learn how to structure your code to minimize mocking in tests through practical examples and real-world scenarios"
 date: 2024-11-25T05:00:00Z
-image: "/images/clean-code.png"
+image: "/images/clean-vs-mocked-architecture.png"
 categories: ["Testing", "Architecture"]
 author: "MacBobby Chibuzor"
 tags: ["testing", "python", "architecture", "clean-code"]
