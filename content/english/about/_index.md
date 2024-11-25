@@ -1,17 +1,16 @@
 ---
 title: "Hey, I am MacBobby Chibuzor!"
 meta_title: "About"
-description: "Learn more about MacBobby Chibuzor, a software engineer with a passion for FinTech and blockchain solutions."
+description: "Software engineer specializing in FinTech and blockchain solutions, with a passion for mathematics and robotics."
 image: "/images/avatar.png"
 draft: false
 ---
 
-### My Passion for Mathematics and Computation
+### 🧮 Mathematics & Computation
 
-I have a profound interest in the intersection of mathematics, computation, and philosophy.
-The excitement of integrating complex mathematical concepts into my software projects is unparalleled.
-For instance, I recently applied the Sum of Series formula to distribute funds between multiple Solana wallets:
+I thrive at the intersection of mathematics, computation, and philosophy. My work combines rigorous mathematical concepts with practical software solutions, particularly in blockchain and financial systems.
 
+Here's a recent example where I applied the Sum of Series formula for a Solana wallet distribution system:
 
 ```rust
 /// Calculate distributions for each wallet based on the target amount.
@@ -22,7 +21,7 @@ fn calculate_wallet_distributions(total_wallet_balance: f64, wallet_count: usize
     let mut distributions = Vec::new();
 
     for i in 1..=wallet_count {
-        let wallet_share = part_value * i as f64; // Calculate each wallet's share based on their position in the sequence
+        let wallet_share = part_value * i as f64;
         distributions.push(wallet_share);
     }
     println!("Distributions calculated: {:?}", distributions);
@@ -30,29 +29,45 @@ fn calculate_wallet_distributions(total_wallet_balance: f64, wallet_count: usize
 }
 ```
 
-I am interested in building quantitative financial models and researching trading algorithms for both crypto and synthetic assets.
+### 🎓 Engineering Background
 
-### Academic Background and Aspirations
-I pursued Mechatronics Engineering at the university, inspired by the vision of becoming a roboticist like Tony Stark.
-This journey led me to enjoy working with Arduino and Raspberry Pi microcontrollers and
-fostered a dream of founding a company that redefines domesticated robotics.
+My journey began in Mechatronics Engineering, inspired by a vision of advancing robotics technology. Working with Arduino and Raspberry Pi sparked my interest in the possibilities of domestic robotics, leading to my current pursuit of founding a company in this space.
 
-### Philosophy on Software Engineering
-I view software engineering as a powerful enabler.
-To me, programming is the art of commanding digital technology to realize my visions.
-I am tool-agnostic, choosing whatever tools necessary to achieve my goals, driven by the desire to make my ideas come to life.
+### 💡 Philosophy & Approach
 
-### Beyond Software Engineering
-Outside of software engineering, I enjoy tinkering with microcontrollers, trading in financial markets,
-exploring the crypto space, and sharing my knowledge at technical events and workshops.
-As the Lead of the Open Source Community Africa Abeokuta chapter, I am deeply involved in the open-source community.
+To me, software engineering is more than writing code—it's about:
+- Creating tangible solutions to complex problems
+- Building systems that enhance financial accessibility
+- Contributing to the evolution of blockchain technology
+- Sharing knowledge and fostering community growth
 
-### What Books I Have Enjoyed Reading
+### 🛠 Current Focus
 
-Throughout my career and personal development, I have found inspiration and valuable insights from the following books:
+I'm actively working on:
+- Quantitative financial models for crypto markets
+- Trading algorithms for synthetic assets
+- Blockchain infrastructure development
+- Open source contributions as Lead of OSCA Abeokuta
 
-- [x] The Almanack of Naval Ravikant by Eric Jorgenssen
-- [x] The Rudest Book Ever by Shwetabh Gangwar
-- [x] Elon Musk: A Biography by Ashlee Vance
+### 📚 Literary Influences
 
-Feel free to explore my portfolio and connect with me through my GitHub and LinkedIn profiles.
+Books that have shaped my perspective:
+
+| Book | Author | Key Takeaway |
+|------|---------|-------------|
+| The Almanack of Naval Ravikant | Eric Jorgenssen | Wealth creation through leverage and specific knowledge |
+| The Rudest Book Ever | Shwetabh Gangwar | Clear thinking and decision-making |
+| Elon Musk: A Biography | Ashlee Vance | Ambitious goal-setting and execution |
+
+### 🔗 Connect & Collaborate
+
+I'm always interested in discussing:
+- Innovative blockchain solutions
+- Quantitative trading strategies
+- Robotics and automation
+- Open source collaboration
+
+Feel free to reach out through:
+- GitHub: [@theghostmac](https://github.com/theghostmac)
+- LinkedIn: [MacBobby Chibuzor](https://linkedin.com/in/chibuzor-oghenekaro)
+- Email: [theghostmac@gmail.com](mailto:theghostmac@gmail.com)

@@ -6,53 +6,46 @@
   {{- end -}}"
   lang="{{ site.LanguageCode | default `en-US` }}"
   itemtype="http://schema.org/WebPage">
-  <head>
-    <!-- head (don't cache it) -->
-    {{ partial "essentials/head.html" . }}
+<head>
+  <!-- head (don't cache it) -->
+  {{ partial "essentials/head.html" . }}
 
+  <!-- style (always cache it) -->
+  {{ partialCached "essentials/style.html" . }}
 
-    <!-- style (always cache it) -->
-    {{ partialCached "essentials/style.html" . }}
+  <!-- style (support latex/katex for math equations.) -->
+  {{ if .Param "math" }}
+  {{ partialCached "essentials/math.html" . }}
+  {{ end }}
+</head>
 
-    <!-- style (support latex/katex for math equations.) -->
-    {{ if .Param "math" }}
-        {{ partialCached "essentials/math.html" . }}
-    {{ end }}
+<body class="bg-white dark:bg-zinc-900"> <!-- Added background classes here -->
+<!-- cache partial only in production -->
+{{ if hugo.IsProduction }}
+{{ partialCached "preloader.html" . }}
+{{ partialCached "gtm-noscript.html" . }}
+{{ else }}
+{{ partial "preloader.html" . }}
 
-  </head>
+<!-- tailwind size indicator -->
+{{ partial "components/tw-size-indicator.html" . }}
+{{ end }}
 
-  <body>
-    <!-- cache partial only in production -->
-    {{ if hugo.IsProduction }}
-      {{ partialCached "preloader.html" . }}
-      {{ partialCached "gtm-noscript.html" . }}
-    {{ else }}
-      {{ partial "preloader.html" . }}
+<!-- announcement -->
+{{ partialCached "announcement.html" . }}
 
+<!-- header (don't cache it) -->
+{{ partial "essentials/header.html" . }}
+{{ partial "search-modal.html" (dict "Context" . ) }}
 
-      <!-- tailwind size indicator -->
-      {{ partial "components/tw-size-indicator.html" . }}
-    {{ end }}
+<main class="bg-white dark:bg-zinc-900"> <!-- Added background classes here too -->
+  {{ block "main" . }}{{ end }}
+</main>
 
+<!-- footer -->
+{{ partial "essentials/footer.html" . }}
 
-    <!-- announcement -->
-    {{ partialCached "announcement.html" . }}
-
-
-    <!-- header (don't cache it) -->
-    {{ partial "essentials/header.html" . }}
-    {{ partial "search-modal.html" (dict "Context" . ) }}
-
-
-    <main>
-      {{ block "main" . }}{{ end }}
-    </main>
-
-    <!-- footer -->
-    {{ partial "essentials/footer.html" . }}
-
-
-    <!-- script (always cache it) -->
-    {{ partialCached "essentials/script.html" . }}
-  </body>
+<!-- script (always cache it) -->
+{{ partialCached "essentials/script.html" . }}
+</body>
 </html>

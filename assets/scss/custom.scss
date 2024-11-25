@@ -1,1 +1,99 @@
-// Add your own custom styles here
+// Custom styles
+.card {
+  @apply p-6 rounded-lg bg-zinc-800/50 border border-zinc-700 transition-all duration-300;
+
+  &:hover {
+    @apply transform border-emerald-500/50;
+  }
+}
+
+.tag {
+  @apply px-3 py-1 bg-zinc-700 rounded-full text-sm text-zinc-100;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-semibold transition-colors;
+
+  &-primary {
+    @apply bg-emerald-500 text-zinc-900 hover:bg-emerald-400;
+  }
+
+  &-icon {
+    @apply p-2 text-zinc-400 hover:text-emerald-400 transition-colors;
+  }
+}
+
+/* Cool text selection styles */
+::selection {
+  background-color: rgba(16, 185, 129, 0.2); /* emerald-500 with opacity */
+  color: #059669; /* emerald-600 */
+}
+
+::-moz-selection {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #059669;
+}
+
+/* Dark mode selection */
+.dark ::selection {
+  background-color: rgba(52, 211, 153, 0.2); /* emerald-400 with opacity */
+  color: #34d399; /* emerald-400 */
+}
+
+.dark ::-moz-selection {
+  background-color: rgba(52, 211, 153, 0.2);
+  color: #34d399;
+}
+
+// Animations
+.animate-fade-up {
+  @apply opacity-0 translate-y-4;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  @apply font-mono;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-zinc-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700 rounded-full;
+
+  &:hover {
+    @apply bg-zinc-600;
+  }
+}
+
+/* Ensure headings are always visible */
+h1, h2, h3, h4, h5, h6 {
+  @apply text-gray-900 dark:text-white font-bold;
+}
+
+/* Ensure text has proper contrast */
+.text-body {
+  @apply text-gray-700 dark:text-gray-200;
+}
+
+.text-muted {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+/* Footer text */
+footer {
+  @apply text-gray-900 dark:text-white;
+}

@@ -1,9 +1,10 @@
+// base.scss
 html {
   @apply text-base-sm md:text-base;
 }
 
 body {
-  @apply bg-body text-base dark:bg-darkmode-body font-primary font-normal leading-relaxed text-text dark:text-darkmode-text;
+  @apply bg-zinc-900 text-zinc-100 font-mono leading-relaxed;
 }
 
 h1,
@@ -12,48 +13,68 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-secondary font-bold leading-tight text-dark dark:text-darkmode-dark;
+  @apply font-mono font-bold leading-tight text-zinc-100;
 }
 
 h1,
 .h1 {
-  @apply text-h1-sm md:text-h1;
+  @apply text-4xl md:text-5xl;
 }
 
 h2,
 .h2 {
-  @apply text-h2-sm md:text-h2;
+  @apply text-2xl md:text-3xl;
 }
 
 h3,
 .h3 {
-  @apply text-h3-sm md:text-h3;
+  @apply text-xl md:text-2xl;
 }
 
 h4,
 .h4 {
-  @apply text-h4;
+  @apply text-lg md:text-xl;
 }
 
 h5,
 .h5 {
-  @apply text-h5;
+  @apply text-base md:text-lg;
 }
 
 h6,
 .h6 {
-  @apply text-h6;
+  @apply text-sm md:text-base;
 }
 
-b,
-strong {
-  @apply font-semibold;
+// Card and container styles
+.card {
+  @apply p-6 rounded-lg bg-zinc-800/50 border border-zinc-700 transition-colors;
+
+  &:hover {
+    @apply border-emerald-500/50;
+  }
 }
 
-code {
-  @apply after:border-none;
+.container {
+  @apply max-w-5xl mx-auto px-6;
 }
 
-blockquote > p {
-  @apply my-0 #{!important};
+// Navigation styles
+.nav-fixed {
+  @apply fixed top-0 w-full bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-800 z-50;
+}
+
+// Tag styles
+.tag {
+  @apply px-3 py-1 bg-zinc-700 rounded-full text-sm;
+}
+
+// Link styles
+a {
+  @apply text-emerald-400 hover:text-emerald-300 transition-colors;
+}
+
+// Section styles
+.section {
+  @apply py-12 md:py-16;
 }

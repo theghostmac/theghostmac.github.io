@@ -1,9 +1,14 @@
-<section>
-  <div class="container text-center">
-    <div
-      class="from-body to-theme-light dark:from-darkmode-body dark:to-darkmode-theme-light rounded-2xl bg-gradient-to-b px-8 py-14">
-      <h1>{{ T (printf "%s" (lower .Title)) | default .Title | title }}</h1>
-      {{ partial "components/breadcrumb" (dict "Context" . "Class" "mt-6") }}
+<section class="pt-32 pb-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center space-x-2 text-emerald-400 mb-4">
+      <i class="fa fa-code"></i>
+      <span class="text-sm tracking-wide">{{ .Section | title }}</span>
     </div>
+    <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6">
+      {{ .Title }}
+    </h1>
+    {{ if .Description }}
+    <p class="text-zinc-400 max-w-2xl">{{ .Description }}</p>
+    {{ end }}
   </div>
 </section>
