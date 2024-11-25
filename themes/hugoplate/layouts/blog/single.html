@@ -1,95 +1,83 @@
 {{ define "main" }}
-  <section class="section pt-7">
-    <div class="container">
-      <div class="row justify-center">
-        <article class="lg:col-10">
-          {{ $image:= .Params.image }}
-          {{ if $image }}
-            <div class="mb-10">
-              {{ partial "image" (dict "Src" $image "Context" .Page "Alt" .Title "Class" "w-full rounded") }}
-            </div>
-          {{ end }}
-          <h1 class="h2 mb-4">
-            {{ .Title }}
-          </h1>
-          <ul class="mb-4">
-            <li class="mr-4 inline-block">
-              <a
-                href="{{ `authors/` | relLangURL }}{{ .Params.Author | urlize }}/">
-                <i class="fa-regular fa-circle-user mr-2"></i
-                >{{ .Params.author }}
-              </a>
-            </li>
-            {{ $categories:= .Params.categories }}
-            {{ if $categories }}
-              <li class="mr-4 inline-block">
-                <i class="fa-regular fa-folder mr-2"></i>
-                {{ range $i,$p:= $categories }}
-                  <a
-                    href="{{ `categories/` | relLangURL }}{{ . | urlize | lower }}/"
-                    class=""
-                    >{{ . | humanize }}{{ if ne $i (sub (len $categories) 1) }}
-                      {{ "," }}
-                    {{ end }}
-                  </a>
-                {{ end }}
-              </li>
-            {{ end }}
-            <li class="mr-4 inline-block">
-              <i class="fa-regular fa-clock mr-2"></i>
-              {{ time.Format ":date_long" .PublishDate }}
-            </li>
-          </ul>
-          <div class="content mb-10">
-            {{ partial "toc.html" (dict "Class" "blog" "Collapsed" false "TableOfContents" .TableOfContents ) }}
-            {{ .Content }}
-          </div>
-          <div class="row items-start justify-between">
-            {{ $tags:= .Params.tags }}
-            {{ if $tags }}
-              <div class="lg:col-5 mb-10 flex items-center lg:mb-0">
-                <h5 class="mr-3">{{ T "tags" }} :</h5>
-                <ul>
-                  {{ range $i,$p:= $tags }}
-                    <li class="inline-block">
-                      <a
-                        class="bg-theme-light hover:bg-primary dark:bg-darkmode-theme-light dark:hover:bg-darkmode-primary dark:hover:text-dark m-1 block rounded px-3 py-1 hover:text-white"
-                        href="{{ `tags/` | relLangURL }}{{ . | urlize | lower }}/">
-                        {{ . | humanize }}
-                      </a>
-                    </li>
-                  {{ end }}
-                </ul>
-              </div>
-            {{ end }}
-            <div class="lg:col-4 flex items-center">
-              {{ partial "social-share" (dict "Context" . "Class" "share-icons" "Title" (T "share") "Whatsapp" false "Telegram" false "Linkedin" false "Pinterest" false "Tumblr" false "Vk" false) }}
-            </div>
-          </div>
-          <!-- comments -->
-          {{ if site.Config.Services.Disqus.Shortname }}
-            <div class="mt-20">
-              {{ template "_internal/disqus.html" . }}
-            </div>
-          {{ end }}
-        </article>
+<article class="section pt-32">
+  <div class="container max-w-[1000px]">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      {{ with .Params.categories }}
+      <div class="mb-6">
+        {{ range . }}
+        <a href="{{ `categories/` | relLangURL }}{{ . | urlize | lower }}/"
+           class="text-sm px-4 py-1.5 rounded-full bg-primary/10 text-primary dark:bg-darkmode-primary/10 dark:text-darkmode-primary mx-1">
+          {{ . }}
+        </a>
+        {{ end }}
       </div>
-
-      <!-- Related posts -->
-      {{ $related := (where site.RegularPages "Section" "in" site.Params.mainSections) | intersect (where site.RegularPages ".Title" "!=" .Title) | union (site.RegularPages.Related . ) }}
-      {{ $related = $related | shuffle | first 3 }}
-      {{ with $related }}
-        <div class="section pb-0">
-          <h2 class="h3 mb-12">{{ T "related_posts" }}</h2>
-          <div class="row">
-            {{ range . }}
-              <div class="lg:col-4 md:col-6 mb-14">
-                {{ partial "components/blog-card" . }}
-              </div>
-            {{ end }}
-          </div>
-        </div>
       {{ end }}
+
+      <h1 class="h1 mb-6">{{ .Title }}</h1>
+
+      <div class="flex items-center justify-center text-light dark:text-darkmode-light space-x-4">
+        {{ with .Params.author }}
+        <span class="flex items-center">
+              <i class="fa-regular fa-circle-user mr-2"></i>{{ . }}
+            </span>
+        {{ end }}
+        <span>•</span>
+        <time>{{ time.Format ":date_long" .PublishDate }}</time>
+      </div>
+    </header>
+
+    {{ with .Params.image }}
+    <div class="mb-12 rounded-lg overflow-hidden">
+      {{ partial "image" (dict "Src" . "Context" $.Page "Alt" $.Title "Class" "w-full") }}
     </div>
-  </section>
+    {{ end }}
+
+    <!-- Content -->
+    <div class="prose dark:prose-invert max-w-none mb-12">
+      {{ partial "toc.html" (dict "Class" "blog" "Collapsed" false "TableOfContents" .TableOfContents ) }}
+      {{ .Content }}
+    </div>
+
+    <!-- Tags and Share -->
+    <footer class="border-t border-border dark:border-darkmode-border pt-8">
+      <div class="flex flex-wrap items-center justify-between gap-6">
+        {{ with .Params.tags }}
+        <div class="flex items-center flex-wrap gap-2">
+          <h5 class="mr-3">{{ T "tags" }}:</h5>
+          {{ range . }}
+          <a href="{{ `tags/` | relLangURL }}{{ . | urlize | lower }}/"
+             class="px-3 py-1 rounded bg-theme-light hover:bg-primary hover:text-white dark:bg-darkmode-theme-light dark:hover:bg-darkmode-primary transition-colors">
+            {{ . | humanize }}
+          </a>
+          {{ end }}
+        </div>
+        {{ end }}
+
+        {{ partial "social-share" (dict "Context" . "Class" "share-icons" "Title" (T "share") "Whatsapp" false "Telegram" false "Linkedin" false "Pinterest" false "Tumblr" false "Vk" false) }}
+      </div>
+    </footer>
+
+    <!-- Comments -->
+    {{ if site.Config.Services.Disqus.Shortname }}
+    <div class="mt-16">
+      {{ template "_internal/disqus.html" . }}
+    </div>
+    {{ end }}
+
+    <!-- Related Posts -->
+    {{ $related := (where site.RegularPages "Section" "in" site.Params.mainSections) | intersect (where site.RegularPages ".Title" "!=" .Title) | union (site.RegularPages.Related . ) }}
+    {{ $related := $related | shuffle | first 3 }}
+    {{ with $related }}
+    <section class="mt-16">
+      <h2 class="h3 mb-8">{{ T "related_posts" }}</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {{ range . }}
+        {{ partial "components/blog-card" . }}
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+  </div>
+</article>
 {{ end }}

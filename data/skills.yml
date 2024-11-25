@@ -1,0 +1,20 @@
+core:
+  - Golang
+  - Rust
+  - Solidity
+  - TypeScript
+  - Python
+
+infrastructure:
+  - Docker
+  - Kubernetes
+  - AWS
+  - Terraform
+  - CI/CD
+
+blockchain:
+  - Solana
+  - Ethereum
+  - Smart Contracts
+  - DeFi
+  - Web3

@@ -1,55 +1,92 @@
 ---
 # Banner
 banner:
-  title: "MacBobby Chibuzor - Software Engineer with Expertise in FinTech and Blockchain"
-  content: "Welcome to my personal website. Here, you can explore my projects, learn about my experiences, and connect with me."
-  image: "/images/banner.png"
+  title: "MacBobby Chibuzor"
+  content: "Building scalable backend systems, smart contracts, and cloud-native applications with a focus on FinTech and blockchain solutions. Specialized in high-performance distributed systems and security-first development."
   button:
     enable: true
-    label: "View My GitHub"
+    label: "View GitHub"
     link: "https://github.com/theghostmac"
 
-# Features
-features: 
-  - title: "About Me"
-    image: "/images/service-1.png"
-    content: "I am MacBobby Chibuzor, a dedicated software engineer with a passion for developing innovative solutions in the FinTech and blockchain domains. With extensive experience in building scalable backend systems, smart contracts, and cloud-native applications, I bring a unique blend of technical expertise and creativity to my work."
-    bulletpoints:
-      - "5 years of experience in software engineering"
-      - "Expertise in Golang, Rust, Solidity, and more"
-      - "Skilled in Docker, Kubernetes, and cloud services (GCP, AWS)"
-      - "Proficient in developing FinTech solutions and blockchain technology"
-      - "Strong technical writing and documentation skills"
-    button:
-      enable: false
-      label: ""
-      link: ""
+# Skills
+skills:
+  core_tech:
+    title: "Core Technologies"
+    items:
+      - "Golang"
+      - "Rust"
+      - "Solidity"
+      - "TypeScript"
+      - "Python"
+      - "Dart/Flutter"
 
-  - title: "Projects and Experience"
-    image: "/images/service-2.png"
-    content: "Throughout my career, I have worked on a variety of impactful projects. Here are some highlights of my experience:"
-    bulletpoints:
-      - "Developed a Solana token rug-checker tool and a weekly scheduled algorithm for automated token minting"
-      - "Built USDT wallet provider service and an Escrow smart contract for Paritie Tech"
-      - "Implemented token and liquidity scrapers for the Diadata blockchain oracle for aggregating Ethereum-pegged tokens' market data on Uniswap"
-      - "Researched blockchain technologies, specializing in ZKPs and L2 scalability solutions at Halborn Security"
-      - "Authored 15 technical guides on cloud-native concepts, enhancing client teams' productivity at IOD Cloud Technologies"
-    button:
-      enable: true
-      label: "My Work Log"
-      link: "https://ghostmac.notion.site/Work-Log-ff5e8132f75d44b984834c1539cc5f0c?pvs=4"
+  infrastructure:
+    title: "Infrastructure"
+    items:
+      - "Docker"
+      - "Kubernetes"
+      - "Terraform"
+      - "AWS/GCP"
+      - "CI/CD"
 
-  - title: "Skills and Technologies"
-    image: "/images/service-3.png"
-    content: "My technical skill set spans a wide range of programming languages, tools, and platforms. Here are some key areas of my expertise:"
-    bulletpoints:
-      - "Programming Languages: Golang, Rust, Solidity, Dart/Flutter, JavaScript, Python, TypeScript"
-      - "Cloud-Native Technologies: Docker, Kubernetes, Terraform, CI/CD, Prometheus, OpenTelemetry"
-      - "Blockchain: Go-Ethereum, Uniswap, Foundry, Hardhat, Solana, Tron, Sei, Ethers.js, CosmWasm"
-      - "Databases: PostgreSQL, SQLite, MySQL, MongoDB"
-      - "Misc. Tools: Apache Kafka, gRPC/Protobuf, Git, Markdown"
-    button:
-      enable: false
-      label: ""
-      link: ""
+  blockchain:
+    title: "Blockchain"
+    items:
+      - "Ethereum"
+      - "Solana"
+      - "Foundry"
+      - "Hardhat"
+      - "CosmWasm"
+
+# Featured Projects
+featured_projects:
+  - title: "Solana Token Rug-Checker"
+    content: "Developed an automated security tool for token verification and scheduled minting on Solana, helping protect users from potential scams."
+    technologies:
+      - "Rust"
+      - "Solana"
+      - "TypeScript"
+    link: "#"
+    
+  - title: "USDT Wallet Provider"
+    content: "Built a secure wallet service and smart contract escrow system for Paritie Tech, handling millions in transaction volume."
+    technologies:
+      - "Golang"
+      - "Solidity"
+      - "PostgreSQL"
+    link: "#"
+    
+  - title: "Blockchain Data Oracle"
+    content: "Implemented high-performance token and liquidity scrapers for Diadata, aggregating market data from Uniswap and other DEXs."
+    technologies:
+      - "Go-Ethereum"
+      - "GraphQL"
+      - "Redis"
+    link: "#"
+
+# Experience
+experience:
+  
+  current: "Blockchain Infrastructure Engineer @ Stride Labs"
+  history:
+    - company: "Halborn Security"
+      role: "Blockchain Engineer"
+      duration: "2022 - 2023"
+      highlights:
+        - "Researched and implemented ZKP solutions"
+        - "Developed L2 scalability frameworks"
+        
+    - company: "IOD Cloud Technologies"
+      role: "Technical Author & Engineer"
+      duration: "2021 - 2022"
+      highlights:
+        - "Authored 15+ technical guides"
+        - "Improved team documentation processes"
+
+# Contact
+contact:
+  email: "theghostmac@gmail.com"
+  github: "theghostmac"
+  linkedin: "https://linkedin.com/in/chibuzor-oghenekaro"
+  available_for: "Open to interesting blockchain and FinTech projects"
 ---

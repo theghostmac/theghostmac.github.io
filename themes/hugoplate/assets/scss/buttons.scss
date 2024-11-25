@@ -1,15 +1,20 @@
+// buttons.scss
 .btn {
-  @apply inline-block rounded border border-transparent px-5 py-2 font-semibold capitalize transition;
+  @apply inline-block rounded-lg px-4 py-2 font-semibold transition-colors;
 }
 
 .btn-sm {
-  @apply rounded-sm px-4 py-1.5 text-sm;
+  @apply rounded-lg px-3 py-1.5 text-sm;
 }
 
 .btn-primary {
-  @apply border-primary bg-primary dark:border-darkmode-primary dark:text-dark text-white dark:bg-darkmode-primary;
+  @apply bg-emerald-500 text-zinc-900 hover:bg-emerald-400;
 }
 
-.btn-outline-primary {
-  @apply border-dark text-dark hover:bg-dark dark:hover:text-dark bg-transparent hover:text-white dark:border-darkmode-primary dark:text-white dark:hover:bg-darkmode-primary;
+.btn-outline {
+  @apply border border-zinc-700 text-zinc-100 hover:border-emerald-500/50 hover:text-emerald-400;
+}
+
+.btn-icon {
+  @apply p-2 hover:text-emerald-400 transition-colors;
 }

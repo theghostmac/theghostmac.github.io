@@ -1,144 +1,139 @@
 {{ define "main" }}
-  <!-- Banner -->
-  {{ with .Params.banner }}
-    <section class="section pt-14">
-      <div class="container">
-        <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center">
-            <h1 class="mb-4 text-h3 lg:text-h1">
-              {{ .title | markdownify }}
-            </h1>
-            <p class="mb-8">
-              {{ .content | markdownify }}
-            </p>
-            {{ with .button }}
-              {{ if .enable }}
-                <a
-                  class="btn btn-primary"
-                  href="{{ .link | absURL }}"
-                  {{ if strings.HasPrefix .link `http` }}
-                    target="_blank" rel="noopener"
-                  {{ end }}>
-                  {{ .label }}
-                  <i class="fa fa-arrow-right pl-2"></i>
-                </a>
-              {{ end }}
-            {{ end }}
-          </div>
-          <div class="col-12">
-            {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[800px]" "DisplayXL" "800x" ) }}
-          </div>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-  <!-- /Banner -->
+<!-- Hero Section -->
+<section class="pt-32 pb-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center space-x-2 text-emerald-400 mb-4">
+      <i class="fa fa-terminal"></i>
+      <span class="text-sm tracking-wide">Senior Software Engineer</span>
+    </div>
 
-  <!-- Features -->
-  {{ range $i, $e:= .Params.features }}
-    <section class="section-sm {{ if (modBool $i 2) }}bg-gradient{{ end }}">
-      <div class="container">
-        <div class="row items-center justify-between">
-          <div
-            class="mb:md-0 {{ if not (modBool $i 2) }}
-              md:order-2
-            {{ end }} md:col-5 mb-6">
-            {{ partial "image" (dict "Src" .image "Alt" "feature image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x") }}
-          </div>
-          <div
-            class="{{ if not (modBool $i 2) }}
-              md:order-1
-            {{ end }} md:col-7 lg:col-6">
-            <h2 class="mb-4">
-              {{ .title | markdownify }}
-            </h2>
-            <p class="mb-8 text-lg">
-              {{ .content | markdownify }}
-            </p>
-            <ul>
-              {{ range .bulletpoints }}
-                <li class="relative mb-4 pl-6">
-                  <i class="fa fa-check absolute left-0 top-1.5"></i>
-                  {{ . | markdownify }}
-                </li>
-              {{ end }}
-            </ul>
-            {{ with .button }}
-              {{ if .enable }}
-                <a class="btn btn-primary mt-6" href="{{ .link | absURL }}">
-                  {{ .label }}
-                  <i class="fa fa-arrow-right pl-2"></i>
-                </a>
-              {{ end }}
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-  <!-- /Features -->
-
-  <!-- Testimonials -->
-  {{ with site.GetPage "sections/testimonial" }}
-    {{ if .Params.enable }}
-      <section class="section">
-        <div class="container">
-          <div class="row">
-            <div class="md:col-10 lg:col-8 xl:col-6 mx-auto mb-12 text-center">
-              <h2 class="mb-4">
-                {{ .Title | markdownify }}
-              </h2>
-              <p>
-                {{ .Params.description | markdownify }}
-              </p>
-            </div>
-            <div class="col-12">
-              <div class="swiper testimonial-slider">
-                <div class="swiper-wrapper">
-                  {{ range .Params.testimonials }}
-                    <div class="swiper-slide">
-                      <div
-                        class="bg-theme-light dark:bg-darkmode-theme-light rounded-lg px-7 py-10">
-                        <div class="text-dark dark:text-white">
-                          <svg
-                            width="33"
-                            height="20"
-                            viewBox="0 0 33 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M1.28375 19.41L0.79375 18.64C1.21375 17.0067 1.75042 15.07 2.40375 12.83C3.05708 10.5433 3.75708 8.28 4.50375 6.04C5.29708 3.75333 6.06708 1.77 6.81375 0.0899959H15.3538C14.9338 2.09666 14.4904 4.26667 14.0238 6.6C13.5571 8.88666 13.1371 11.15 12.7638 13.39C12.4371 15.5833 12.1571 17.59 11.9238 19.41H1.28375ZM31.69 0.0899959L32.18 0.859998C31.76 2.54 31.2233 4.5 30.57 6.74C29.9167 8.98 29.2167 11.2433 28.47 13.53C27.7233 15.77 26.9533 17.73 26.16 19.41H17.69C18.0167 17.9167 18.3433 16.33 18.67 14.65C18.9967 12.9233 19.3 11.22 19.58 9.54C19.9067 7.81333 20.1867 6.15667 20.42 4.57C20.7 2.93666 20.91 1.44333 21.05 0.0899959H31.69Z"
-                              fill="currentColor" />
-                          </svg>
-                        </div>
-                        <blockquote class="mt-8">
-                          {{ .content | markdownify }}
-                        </blockquote>
-                        <div class="mt-11 flex items-center">
-                          <div class="text-dark dark:text-white">
-                            {{ partial "image" (dict "Src" .avatar "Size" "50x50" "Class" "rounded-full" "Alt" .name) }}
-                          </div>
-                          <div class="ml-4">
-                            <h3 class="h5 font-primary font-semibold">
-                              {{ .name }}
-                            </h3>
-                            <p class="text-dark dark:text-white">
-                              {{ .designation | markdownify }}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  {{ end }}
-                </div>
-                <div
-                  class="testimonial-slider-pagination mt-9 flex items-center justify-center text-center"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    {{ with .Params.banner }}
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">{{ .title }}</h1>
+    <p class="text-zinc-400 max-w-2xl mb-8 text-lg">{{ .content }}</p>
+    {{ with .button }}
+    {{ if .enable }}
+    <a href="{{ .link }}" class="btn btn-primary" target="_blank" rel="noopener">
+      {{ .label }}
+      <i class="fa fa-arrow-right ml-2"></i>
+    </a>
     {{ end }}
-  {{ end }}
-  <!-- /Testimonials -->
+    {{ end }}
+    {{ end }}
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section class="py-16 px-6 bg-zinc-800/30">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{ with .Params.skills }}
+      {{ with .core_tech }}
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4">{{ .title }}</h3>
+        <div class="flex flex-wrap gap-2">
+          {{ range .items }}
+          <span class="tag">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      {{ with .infrastructure }}
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4">{{ .title }}</h3>
+        <div class="flex flex-wrap gap-2">
+          {{ range .items }}
+          <span class="tag">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      {{ with .blockchain }}
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4">{{ .title }}</h3>
+        <div class="flex flex-wrap gap-2">
+          {{ range .items }}
+          <span class="tag">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8">Featured Projects</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {{ range .Params.featured_projects }}
+      <div class="card hover:border-emerald-500/50">
+        <h3 class="font-semibold mb-2">{{ .title }}</h3>
+        <p class="text-zinc-400 text-sm mb-4">{{ .content }}</p>
+        <div class="flex flex-wrap gap-2">
+          {{ range .technologies }}
+          <span class="text-xs px-2 py-1 bg-zinc-700 rounded-full">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section class="py-16 px-6 bg-zinc-800/30">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8">Experience</h2>
+    {{ with .Params.experience }}
+    <div class="mb-8">
+      <div class="card border-emerald-500/50">
+        <p class="text-emerald-400 font-semibold">{{ .current }}</p>
+      </div>
+    </div>
+    <div class="space-y-6">
+      {{ range .history }}
+      <div class="card">
+        <div class="flex justify-between mb-2">
+          <h3 class="font-semibold">{{ .company }}</h3>
+          <span class="text-zinc-400 text-sm">{{ .duration }}</span>
+        </div>
+        <p class="text-emerald-400 text-sm mb-3">{{ .role }}</p>
+        <ul class="space-y-2">
+          {{ range .highlights }}
+          <li class="text-zinc-400 text-sm">• {{ . }}</li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    {{ with .Params.contact }}
+    <div class="card text-center">
+      <h2 class="text-2xl font-bold mb-4">Get in Touch</h2>
+      <p class="text-emerald-400 mb-6">{{ .available_for }}</p>
+      <div class="flex justify-center space-x-6">
+        <a href="mailto:{{ .email }}" class="btn-icon">
+          <i class="fa fa-envelope text-2xl"></i>
+        </a>
+        <a href="https://github.com/{{ .github }}" class="btn-icon" target="_blank" rel="noopener">
+          <i class="fa fa-github text-2xl"></i>
+        </a>
+        <a href="https://linkedin.com/in/{{ .linkedin }}" class="btn-icon" target="_blank" rel="noopener">
+          <i class="fa fa-linkedin text-2xl"></i>
+        </a>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
 {{ end }}

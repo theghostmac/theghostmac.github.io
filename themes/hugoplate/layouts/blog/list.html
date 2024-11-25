@@ -1,29 +1,75 @@
 {{ define "main" }}
-  {{ partial "page-header" . }}
-
-
-  <section class="section">
-    <div class="container">
-      <div class="row gx-5">
-        <!-- blog posts -->
-        <div class="lg:col-8">
-          <div class="row">
-            {{ $paginator:= .Paginate .RegularPages }}
-            {{ range $paginator.Pages }}
-              <div class="md:col-6 mb-14">
-                {{ partial "components/blog-card" . }}
-              </div>
-            {{ end }}
-          </div>
-          {{ partial "components/pagination.html" . }}
-        </div>
-        <!-- sidebar -->
-        <div class="lg:col-4">
-          <!-- widget -->
-          {{ $widget:= site.Params.widgets.sidebar }}
-          {{ partialCached "widgets/widget-wrapper" ( dict "Widgets" $widget "Scope" . ) }}
-        </div>
-      </div>
+<!-- Blog Header -->
+<section class="pt-32 pb-16 px-6">
+  <div class="container">
+    <div class="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 mb-4">
+      <i class="fa fa-pen-fancy"></i>
+      <span class="text-sm tracking-wide">Blog</span>
     </div>
-  </section>
+    <h1 class="h2 mb-8 text-gray-900 dark:text-white">Latest Articles</h1>
+  </div>
+</section>
+
+<section class="section px-6">
+  <div class="container">
+    <div class="grid grid-cols-12 gap-8">
+      <!-- Main Content -->
+      <div class="col-span-12 lg:col-span-8">
+        <div class="grid md:grid-cols-2 gap-8">
+          {{ $paginator := .Paginate .RegularPages }}
+          {{ range $paginator.Pages }}
+          <article class="bg-white dark:bg-zinc-800 rounded-lg shadow-sm dark:shadow-zinc-700/20 overflow-hidden transition-all duration-300 hover:-translate-y-1">
+            {{ if .Params.image }}
+            <a href="{{ .RelPermalink }}" class="block aspect-[16/9] overflow-hidden">
+              {{ partial "image" (dict "Src" .Params.image "Context" .Page "Alt" .Title "Class" "w-full h-full object-cover") }}
+            </a>
+            {{ end }}
+
+            <div class="p-6">
+              <!-- Categories -->
+              {{ with .Params.categories }}
+              <div class="mb-4">
+                {{ range . }}
+                <a href="{{ `categories/` | relLangURL }}{{ . | urlize | lower }}/"
+                   class="text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 mr-2">
+                  {{ . }}
+                </a>
+                {{ end }}
+              </div>
+              {{ end }}
+
+              <h2 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+                <a href="{{ .RelPermalink }}" class="hover:text-emerald-600 dark:hover:text-emerald-400">
+                  {{ .Title }}
+                </a>
+              </h2>
+
+              <p class="text-gray-600 dark:text-gray-300 mb-4">{{ .Summary }}</p>
+
+              <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                {{ with .Params.author }}
+                <span class="flex items-center">
+                  <i class="fa-regular fa-circle-user mr-2"></i>{{ . }}
+                </span>
+                {{ end }}
+                <span class="mx-3">•</span>
+                <time>{{ time.Format ":date_medium" .PublishDate }}</time>
+              </div>
+            </div>
+          </article>
+          {{ end }}
+        </div>
+        {{ partial "components/pagination.html" . }}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="col-span-12 lg:col-span-4">
+        <div class="sticky top-24 space-y-8">
+          {{ $widget := site.Params.widgets.sidebar }}
+          {{ partialCached "widgets/widget-wrapper" (dict "Widgets" $widget "Scope" . ) }}
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
 {{ end }}

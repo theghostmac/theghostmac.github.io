@@ -1,37 +1,45 @@
-<div class="bg-body dark:bg-darkmode-body">
+<div class="bg-white dark:bg-darkmode-theme-light rounded-lg shadow-sm border border-border dark:border-darkmode-border hover:shadow-md transition-all duration-200">
   {{ $image:= .Params.image }}
   {{ if $image }}
-    {{ partial "image" (dict "Src" $image "Context" .Page "Alt" .Title "Class" "mb-6 w-full rounded") }}
+  {{ partial "image" (dict "Src" $image "Context" .Page "Alt" .Title "Class" "w-full h-48 object-cover rounded-t-lg") }}
   {{ end }}
-  <h4 class="mb-3">
-    <a href="{{ .RelPermalink }}">
-      {{ .Title }}
-    </a>
-  </h4>
-  {{ $categories:= .Params.categories }}
-  {{ if $categories }}
-    <ul class="mb-4">
-      <li class="mr-4 inline-block">
-        <a href="{{ `authors/` | relLangURL }}{{ .Params.Author | urlize }}/">
-          <i class="fa-regular fa-circle-user mr-2"></i>{{ .Params.author }}
+
+  <div class="p-6">
+    {{ $categories:= .Params.categories }}
+    {{ if $categories }}
+    <div class="mb-4">
+      {{ range $categories }}
+      <span class="inline-block text-xs px-2 py-1 bg-theme-light dark:bg-darkmode-theme-dark rounded mr-2 text-dark dark:text-darkmode-text">
+            {{ . | humanize }}
+          </span>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    <h4 class="mb-3 text-dark dark:text-darkmode-dark font-bold hover:text-primary dark:hover:text-darkmode-primary transition-colors">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h4>
+
+    <div class="mb-4 text-sm">
+      <span class="mr-4 inline-block">
+        <i class="fa-regular fa-circle-user mr-1.5 text-primary dark:text-darkmode-primary"></i>
+        <a href="{{ `authors/` | relLangURL }}{{ .Params.Author | urlize }}/" class="text-dark dark:text-darkmode-text">
+          {{ .Params.author }}
         </a>
-      </li>
-      <li class="mr-4 inline-block">
-        <i class="fa-regular fa-folder mr-1"></i>
-        {{ range $i,$p:= $categories }}
-          <a
-            href="{{ `categories/` | relLangURL }}{{ . | urlize | lower }}/"
-            class="ms-1"
-            >{{ . | humanize }}{{ if ne $i (sub (len $categories) 1) }}
-              {{ "," }}
-            {{ end }}
-          </a>
-        {{ end }}
-      </li>
-    </ul>
-  {{ end }}
-  <p class="mb-6">{{ .Summary }}</p>
-  <a class="btn btn-outline-primary btn-sm" href="{{ .RelPermalink }}">
-    {{ T "read_more" }}
-  </a>
+      </span>
+
+      <span class="inline-block">
+        <i class="fa-regular fa-clock mr-1.5 text-primary dark:text-darkmode-primary"></i>
+        <span class="text-text dark:text-darkmode-text">{{ time.Format ":date_medium" .PublishDate }}</span>
+      </span>
+    </div>
+
+    <p class="mb-6 text-text dark:text-darkmode-text">{{ .Summary }}</p>
+
+    <a class="inline-flex items-center text-primary dark:text-darkmode-primary hover:opacity-75 transition-opacity"
+       href="{{ .RelPermalink }}">
+      Read More
+      <i class="fa fa-arrow-right ml-2"></i>
+    </a>
+  </div>
 </div>

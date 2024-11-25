@@ -17,36 +17,11 @@ pageRef = "/elements"
 weight = 3
 
 [[main]]
-weight = 4
-name = "Pages"
-
-[[main]]
-parent = "Pages"
-name = "Blog"
+name = "Blog"  # Changed from Pages
 pageRef = "/blog"
+weight = 4
 
-[[main]]
-parent = "Pages"
-name = "Contact"
-pageRef = "/contact"
-
-[[main]]
-parent = "Pages"
-name = "Authors"
-pageRef = "/authors"
-
-[[main]]
-parent = "Pages"
-name = "Categories"
-pageRef = "/categories"
-
-[[main]]
-parent = "Pages"
-name = "404 Page"
-pageRef = "/404"
-
-
-# footer menu
+# footer menu (unchanged)
 [[footer]]
 name = "About"
 pageRef = "/about"
