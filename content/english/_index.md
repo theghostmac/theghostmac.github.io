@@ -2,7 +2,7 @@
 # Banner
 banner:
   title: "MacBobby Chibuzor"
-  content: "Building scalable backend systems, smart contracts, and cloud-native applications with a focus on FinTech and blockchain solutions. Specialized in high-performance distributed systems and security-first development."
+  content: "Software engineer specialized in building FinTech solutions. I build performant backend systems, blockchain solutions, and cloud-native applications. I am also a great technical writer who documents code, APIs, and writes helpful tutorials for the community."
   button:
     enable: true
     label: "View GitHub"
@@ -47,7 +47,7 @@ featured_projects:
       - "Solana"
       - "TypeScript"
     link: "#"
-    
+
   - title: "USDT Wallet Provider"
     content: "Built a secure wallet service and smart contract escrow system for Paritie Tech, handling millions in transaction volume."
     technologies:
@@ -55,7 +55,7 @@ featured_projects:
       - "Solidity"
       - "PostgreSQL"
     link: "#"
-    
+
   - title: "Blockchain Data Oracle"
     content: "Implemented high-performance token and liquidity scrapers for Diadata, aggregating market data from Uniswap and other DEXs."
     technologies:
@@ -66,16 +66,21 @@ featured_projects:
 
 # Experience
 experience:
-  
-  current: "Blockchain Infrastructure Engineer @ Stride Labs"
   history:
+    - company: "Stride Labs"
+      role: "Blockchain Infrastructure Engineer"
+      duration: "October 2024 - Present"
+      highlights:
+        - "Led core infra for Stride utilities and Launchpad, powering DeFi growth"
+        - "Built $50M+ stBGT Indexer across Berachain protocols"
+        - "Created $STRD burn bot, removing $330K+ from supply"
     - company: "Halborn Security"
       role: "Blockchain Engineer"
       duration: "2022 - 2023"
       highlights:
         - "Researched and implemented ZKP solutions"
         - "Developed L2 scalability frameworks"
-        
+
     - company: "IOD Cloud Technologies"
       role: "Technical Author & Engineer"
       duration: "2021 - 2022"
