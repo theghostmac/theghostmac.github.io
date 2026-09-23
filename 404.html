@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moved to theghostmac.codes</title>
+<link rel="canonical" href="https://www.theghostmac.codes/">
+<meta name="robots" content="noindex">
+<script>
+  // Every page of the old Hugo site now lives on theghostmac.codes.
+  // Posts keep their slug (/blog/<slug>/ -> /blog/<slug>); listing pages map
+  // to their closest equivalent; anything else lands on the home page.
+  (function () {
+    var site = "https://www.theghostmac.codes";
+    var path = location.pathname.replace(/\/+$/, "") || "/";
+    var dest = "/";
+    var removed = ["/blog/post-1", "/blog/post-2", "/blog/post-3", "/blog/post-4"];
+    if (/^\/blog\/[^/]+$/.test(path) && removed.indexOf(path) === -1) dest = path;
+    else if (/^\/(blog|categories|tags)(\/|$)/.test(path)) dest = "/blog";
+    else if (/^\/(about|authors)(\/|$)/.test(path)) dest = "/";
+    else if (/^\/contact(\/|$)/.test(path)) dest = "/contact";
+    location.replace(site + dest + location.hash);
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://www.theghostmac.codes/"></noscript>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#000;color:#e6e6e6;font:15px/1.6 ui-monospace,Menlo,monospace}a{color:#ffa028}</style>
+</head>
+<body>
+<p>This site moved to <a href="https://www.theghostmac.codes/">theghostmac.codes</a>.</p>
+</body>
+</html>
